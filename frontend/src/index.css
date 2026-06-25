@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --weha-bg: #f7f6f2;
+    --weha-surface: #f9f8f5;
+    --weha-elevated: #ffffff;
+    --weha-text: #28251d;
+    --weha-muted: rgba(40, 37, 29, 0.62);
+    --weha-faint: rgba(40, 37, 29, 0.40);
+    --weha-border: rgba(40, 37, 29, 0.12);
+    --weha-teal: #01696f;
+    --weha-pop: #01696f;
+    --weha-teal-soft: rgba(1, 105, 111, 0.10);
+
+    --background: 48 27% 96%;
+    --foreground: 42 16% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 42 16% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 42 16% 14%;
+    --primary: 184 98% 22%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 48 20% 92%;
+    --secondary-foreground: 42 16% 14%;
+    --muted: 48 20% 92%;
+    --muted-foreground: 42 8% 40%;
+    --accent: 184 98% 22%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 42 16% 86%;
+    --input: 42 16% 86%;
+    --ring: 184 98% 22%;
+    --radius: 0.5rem;
+}
+
+.dark {
+    --weha-bg: #171614;
+    --weha-surface: #1f1d1a;
+    --weha-elevated: #262421;
+    --weha-text: #f3f1ea;
+    --weha-muted: rgba(243, 241, 234, 0.60);
+    --weha-faint: rgba(243, 241, 234, 0.38);
+    --weha-border: rgba(243, 241, 234, 0.12);
+    --weha-teal: #34b3ab;
+    --weha-pop: #34b3ab;
+    --weha-teal-soft: rgba(52, 179, 171, 0.12);
+
+    --background: 48 9% 9%;
+    --foreground: 45 25% 93%;
+    --card: 45 7% 12%;
+    --card-foreground: 45 25% 93%;
+    --popover: 45 7% 12%;
+    --popover-foreground: 45 25% 93%;
+    --primary: 176 55% 45%;
+    --primary-foreground: 48 9% 9%;
+    --secondary: 45 6% 16%;
+    --secondary-foreground: 45 25% 93%;
+    --muted: 45 6% 16%;
+    --muted-foreground: 45 10% 62%;
+    --accent: 176 55% 45%;
+    --accent-foreground: 48 9% 9%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 45 6% 20%;
+    --input: 45 6% 20%;
+    --ring: 176 55% 45%;
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        margin: 0;
+        font-family: 'General Sans', ui-sans-serif, system-ui, sans-serif;
+        background-color: var(--weha-bg);
+        color: var(--weha-text);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color 0.4s ease, color 0.4s ease;
+    }
+    ::selection {
+        background: var(--weha-teal);
+        color: #fff;
+    }
+}
+
+@layer components {
+    .weha-display {
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        line-height: 1.04;
+    }
+    .btn-teal {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--weha-teal);
+        color: #ffffff;
+        border-radius: 999px;
+        padding: 0.85rem 1.6rem;
+        font-weight: 500;
+        font-size: 0.95rem;
+        line-height: 1;
+        transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+    }
+    .btn-teal:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px -12px var(--weha-teal);
+        opacity: 0.96;
+    }
+    .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--weha-text);
+        font-weight: 500;
+        font-size: 0.95rem;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+        transition: color 0.25s ease, border-color 0.25s ease, gap 0.25s ease;
+    }
+    .btn-ghost:hover {
+        color: var(--weha-teal);
+        border-color: var(--weha-teal);
+        gap: 0.7rem;
+    }
+    .weha-card {
+        background: var(--weha-surface);
+        border: 1px solid var(--weha-border);
+        border-radius: 14px;
+        transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    }
+    .weha-card:hover {
+        transform: translateY(-3px);
+        border-color: color-mix(in srgb, var(--weha-teal) 45%, transparent);
+    }
+    .weha-input {
+        width: 100%;
+        background: var(--weha-elevated);
+        border: 1px solid var(--weha-border);
+        border-radius: 10px;
+        padding: 0.8rem 0.95rem;
+        font-size: 0.95rem;
+        color: var(--weha-text);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        outline: none;
+    }
+    .weha-input::placeholder { color: var(--weha-faint); }
+    .weha-input:focus {
+        border-color: var(--weha-teal);
+        box-shadow: 0 0 0 3px var(--weha-teal-soft);
+    }
+    .weha-label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        color: var(--weha-muted);
+        margin-bottom: 0.45rem;
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .glass {
+        background: color-mix(in srgb, var(--weha-surface) 65%, transparent);
+        backdrop-filter: blur(22px) saturate(1.4);
+        -webkit-backdrop-filter: blur(22px) saturate(1.4);
+        border: 1px solid var(--weha-border);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 30px 70px -40px rgba(0, 0, 0, 0.5);
+    }
+    .dark .glass {
+        background: rgba(255, 255, 255, 0.045);
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+    .section-solid { background: var(--weha-bg); }
+    .section-surface { background: var(--weha-surface); }
+
+    .scroll-cue {
+        width: 24px;
+        height: 40px;
+        border: 1.5px solid var(--weha-muted);
+        border-radius: 999px;
+        position: relative;
+    }
+    .scroll-cue::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 7px;
+        width: 4px;
+        height: 8px;
+        margin-left: -2px;
+        border-radius: 999px;
+        background: var(--weha-teal);
+        animation: scrollcue 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollcue {
+        0% { transform: translateY(0); opacity: 1; }
+        70% { transform: translateY(14px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 0; }
+    }
+}
+
+@media (pointer: fine) {
+    html { cursor: none; }
+    a, button, [data-cursor="hover"] { cursor: none; }
+    input, textarea, select { cursor: auto; }
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+}
