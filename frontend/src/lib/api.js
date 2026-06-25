@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+// Empty base => same-origin "/api" — hits the Cloudflare Pages Function.
+// In local dev you can still override via REACT_APP_BACKEND_URL.
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "";
 export const API = `${BACKEND_URL}/api`;
 
 export async function submitAuditRequest(payload) {
