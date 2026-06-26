@@ -101,3 +101,66 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+user_problem_statement: "After pulling the weha-site repo from GitHub, the app was broken because the .env files are gitignored and were not restored on import. Restore environment files and verify backend API is working."
+
+backend:
+  - task: "Restore backend/.env (MONGO_URL, DB_NAME, CORS_ORIGINS)"
+    implemented: true
+    working: true
+    file: "backend/.env"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Recreated /app/backend/.env with MONGO_URL=mongodb://localhost:27017, DB_NAME=weha_database, CORS_ORIGINS=*. Backend now starts and /api/ returns {message: WeHA API}. Needs verification of all API endpoints (GET /api/, POST/GET /api/status, POST/GET /api/audit-requests)."
+        - working: true
+          agent: "testing"
+          comment: "✅ VERIFIED: All backend endpoints working correctly. Tested: GET /api/ returns {message: WeHA API}, POST /api/status creates status check with id/client_name/timestamp, GET /api/status retrieves list including created entry. Backend logs show no errors. MongoDB connection successful. All 7/7 tests passed."
+
+  - task: "Audit Request API (POST/GET /api/audit-requests)"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Existing endpoint accepts name, company, country, industry, process, contact_method, email. Validates non-empty name+process. Persists to Mongo with UUID + created_at. Needs end-to-end verification post-env restoration."
+        - working: true
+          agent: "testing"
+          comment: "✅ VERIFIED: Audit request API fully functional. POST /api/audit-requests with valid data returns 200 with all fields (id, name, company, country, industry, process, contact_method, email, created_at). Validation working correctly: empty name returns 422, empty process returns 422. GET /api/audit-requests returns list sorted by created_at desc. Data persists correctly to MongoDB. All 7/7 tests passed."
+
+frontend:
+  - task: "Restore frontend/.env (REACT_APP_BACKEND_URL)"
+    implemented: true
+    working: "NA"
+    file: "frontend/.env"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Recreated /app/frontend/.env with REACT_APP_BACKEND_URL=https://weha-preview.preview.emergentagent.com. Frontend compiles and serves successfully."
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 2
+  run_ui: false
+
+test_plan:
+  current_focus: []
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "main"
+      message: "Repo was imported from GitHub but .env files were gitignored. Recreated both backend/.env and frontend/.env. Backend supervisor restarted; /api/ root responds. Please verify all backend endpoints: GET /api/, POST /api/status with body {client_name}, GET /api/status, POST /api/audit-requests with all fields (including the validation: empty name or empty process should return 422), and GET /api/audit-requests."
+    - agent: "testing"
+      message: "✅ ALL BACKEND TESTS PASSED (7/7). Created /app/backend_test.py and verified all endpoints: GET /api/ returns correct message, POST/GET /api/status working with proper data persistence, POST /api/audit-requests accepts valid data and correctly validates empty name/process (returns 422), GET /api/audit-requests returns sorted list. MongoDB connection successful. Backend logs clean. No issues found. Backend is fully operational after .env restoration."
