@@ -172,7 +172,7 @@ frontend:
     status_history:
         - working: "NA"
           agent: "main"
-          comment: "Recreated /app/frontend/.env with REACT_APP_BACKEND_URL=https://weha-preview.preview.emergentagent.com. Frontend compiles and serves successfully."
+          comment: "Recreated /app/frontend/.env with REACT_APP_BACKEND_URL=https://promo-site-24.preview.emergentagent.com. Frontend compiles and serves successfully."
 
 metadata:
   created_by: "main_agent"

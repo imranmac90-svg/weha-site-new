@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 
 # Read backend URL from frontend/.env
-BACKEND_URL = "https://weha-preview.preview.emergentagent.com/api"
+BACKEND_URL = "https://promo-site-24.preview.emergentagent.com/api"
 
 def test_root_endpoint():
     """Test GET /api/ - should return {"message": "WeHA API"}"""
