@@ -12,37 +12,38 @@ import Seo from "@/components/Seo";
 import { useBooking } from "@/context/BookingContext";
 
 const pains = [
-  "I'm manually copying Bayut leads into our spreadsheet every morning. Takes 2 hours.",
-  "Every RFQ goes to 6 suppliers by email. We lose deals because we're too slow.",
-  "Our Xero doesn't talk to our calendar. I update both manually every time a client pays.",
+  "I copy the same data between three different tools every single day.",
+  "Leads come in and sit unanswered for hours because everyone's busy.",
+  "I spend my evenings building the same reports by hand, every week.",
 ];
 
 const steps = [
-  { no: "01", title: "Audit", body: "Map your manual workflows, identify the top 3 worth automating this month." },
-  { no: "02", title: "Build", body: "Deploy automation using n8n, Claude, and your existing tools. No new software." },
+  { no: "01", title: "Audit", body: "Map your manual workflows together and identify the top 3 worth automating this month." },
+  { no: "02", title: "Build", body: "Deploy automation using n8n, Claude, and your existing tools. No new software to buy." },
   { no: "03", title: "Hand Off", body: "Working system + documentation + 30-day support. You own it." },
 ];
 
-const trust = [
-  "IAM-grade data permissions — your client data never leaves your tools.",
-  "Compliant with UAE PDPL, Australia Privacy Act, and Singapore PDPA.",
-  "No black-box automations — every system is documented and auditable.",
+const whyWeha = [
+  "You own every system we build — no lock-in, no monthly hostage fees.",
+  "We automate on top of the tools you already use. No rip-and-replace.",
+  "Live systems in days, not months — you see value almost immediately.",
+  "Every automation is documented and handed off, so your team stays in control.",
 ];
 
-const verticals = [
-  { name: "Real Estate", region: "UAE", example: "WhatsApp lead qualification in 60 seconds." },
-  { name: "Freight Forwarding", region: "UAE", example: "RFQ-to-quote in 11 minutes, not 4 hours." },
-  { name: "Accounting Firms", region: "Australia", example: "Payday Super compliance automated before July 1." },
-  { name: "Mortgage & Finance", region: "Australia", example: "Best Interests Duty docs generated automatically." },
-  { name: "Events & Exhibitions", region: "UAE", example: "Vendor quotes tracked and chased without you." },
-  { name: "Fintech", region: "Singapore", example: "Client onboarding checks routed in minutes." },
+const capabilities = [
+  { name: "Lead Capture & Follow-up", example: "Every enquiry answered and routed in seconds, day or night." },
+  { name: "Client Onboarding", example: "New clients set up and active without the manual back-and-forth." },
+  { name: "Quotes & Proposals", example: "Turn a request into a sent quote in minutes, not hours." },
+  { name: "Reporting & Dashboards", example: "Your numbers compiled automatically — no more manual spreadsheets." },
+  { name: "Data Sync", example: "Your tools finally talk to each other. Enter data once, everywhere." },
+  { name: "Reminders & Notifications", example: "Nothing slips through the cracks — follow-ups happen on their own." },
 ];
 
 const metrics = [
-  ["12+", "workflows automated"],
-  ["3", "markets served"],
-  ["0", "compliance incidents"],
-  ["90 min", "to first live demo"],
+  ["120+", "workflows automated"],
+  ["200+", "hours saved per month"],
+  ["55+", "tools integrated"],
+  ["90 min", "to your first live demo"],
 ];
 
 export default function Home() {
@@ -87,7 +88,7 @@ export default function Home() {
     <div data-testid="home-page" className="overflow-x-hidden">
       <Seo
         title=""
-        description="We Help Automate (WeHA) turns your messiest manual workflows into compliance-grade AI systems — built in days, not months. Free AI Audit for SMBs in the UAE, Australia & Singapore."
+        description="We Help Automate (WeHA) turns your messiest manual workflows into AI systems that run themselves — built in days, not months. Book a free AI Audit."
         path="/"
         jsonLd={{
           "@context": "https://schema.org",
@@ -97,8 +98,8 @@ export default function Home() {
           url: "https://www.wehelpautomate.com",
           email: "hi@wehelpautomate.com",
           description:
-            "Compliance-grade AI automation for SMBs in real estate, freight, accounting and finance across the UAE, Australia and Singapore.",
-          areaServed: ["United Arab Emirates", "Australia", "Singapore"],
+            "AI automation for SMBs. We turn your messiest manual workflows into systems that run themselves — built in days, not months.",
+          areaServed: "Worldwide",
           sameAs: ["https://www.linkedin.com/company/we-help-automate"],
         }}
       />
@@ -198,8 +199,8 @@ export default function Home() {
           </div>
           <Reveal delay={0.1}>
             <p className="mt-12 weha-display text-2xl md:text-4xl text-weha-text max-w-3xl leading-snug">
-              These aren't edge cases. These are the workflows we automate{" "}
-              <span className="italic text-weha-teal">first</span> for every client.
+              These are the exact bottlenecks we automate{" "}
+              <span className="italic text-weha-teal">first</span> — whatever business you run.
             </p>
           </Reveal>
         </div>
@@ -229,7 +230,7 @@ export default function Home() {
       </section>
       </ScrollSection>
 
-      {/* DIFFERENCE — dark security moment */}
+      {/* DIFFERENCE — dark moment */}
       <ScrollSection direction="left" settle depth={1} intensity={0.6}>
       <section className="section-glass relative py-28 md:py-40 overflow-hidden" style={{ background: "#171614", "--weha-bg": "#171614", "--weha-text": "#f7f6f2" }}>
         <div
@@ -239,13 +240,13 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-5 sm:px-8 grid gap-14 md:grid-cols-2 md:gap-20 md:items-center">
           <Reveal>
             <h2 className="weha-display text-4xl md:text-6xl text-[#f7f6f2] leading-[1.05]">
-              AI automation, built by someone who spent a decade{" "}
-              <span className="italic" style={{ color: "#9b80e0" }}>stopping breaches.</span>
+              Built to run without us — and{" "}
+              <span className="italic" style={{ color: "#9b80e0" }}>without lock-in.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.12}>
             <ul className="space-y-7">
-              {trust.map((t, i) => (
+              {whyWeha.map((t, i) => (
                 <li key={i} className="flex gap-4">
                   <span style={{ color: "#9b80e0" }} className="text-xl leading-none mt-1">✦</span>
                   <span className="text-lg text-[#e9e6df] leading-relaxed">{t}</span>
@@ -257,22 +258,19 @@ export default function Home() {
       </section>
       </ScrollSection>
 
-      {/* VERTICALS */}
+      {/* WHAT WE AUTOMATE */}
       <ScrollSection direction="right" settle depth={0} intensity={0.4}>
       <section className="section-glass relative section-surface border-b border-weha-border py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
-            <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">Verticals we know cold</span>
-            <h2 className="weha-display text-4xl md:text-5xl mt-3 text-weha-text">The industries we automate first.</h2>
+            <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">What we automate</span>
+            <h2 className="weha-display text-4xl md:text-5xl mt-3 text-weha-text">From first enquiry to final report.</h2>
           </Reveal>
           <div className="mt-14 flex md:grid md:grid-cols-3 gap-5 overflow-x-auto md:overflow-visible hide-scrollbar -mx-5 px-5 md:mx-0 md:px-0">
-            {verticals.map((v, i) => (
+            {capabilities.map((v, i) => (
               <Reveal key={v.name} delay={(i % 3) * 0.08}>
                 <div className="weha-card p-7 min-w-[78vw] sm:min-w-[320px] md:min-w-0 h-full" data-cursor="hover">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <h3 className="weha-display text-2xl text-weha-text">{v.name}</h3>
-                    <span className="text-xs uppercase tracking-wider text-weha-faint">{v.region}</span>
-                  </div>
+                  <h3 className="weha-display text-2xl text-weha-text">{v.name}</h3>
                   <p className="mt-4 text-weha-muted leading-relaxed">{v.example}</p>
                 </div>
               </Reveal>
