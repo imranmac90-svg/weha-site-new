@@ -3,143 +3,170 @@ import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
 import IntegrationStrip from "@/components/IntegrationStrip";
+import Magnetic from "@/components/Magnetic";
 import Seo from "@/components/Seo";
+import { Linkedin } from "lucide-react";
 
-const ABOUT_IMG = "https://static.prod-images.emergentagent.com/jobs/d99f9931-db5c-4ca2-b931-d6fcff8ded90/images/258b624bb01106851a47a12dd52dbd36909965f6f8188fe7423bb709d4ef20c2.png";
+const ASSET = (p) => `${process.env.PUBLIC_URL || ""}${p}`;
 
-const securityPoints = [
-  "Client data sent to the wrong tool → a PDPL violation in the UAE, a Privacy Act breach in Australia.",
-  "An AI agent making commitments your contract doesn't allow → legal liability.",
-  "Automation scraping without controls → IP banned, competitive advantage lost.",
+const story = [
+  "Look at almost any capable team and you'll find the same thing: smart people losing hours every week to work software should be doing for them. Copying data between tools. Chasing the same follow-ups. Rebuilding the same report by hand, every single week.",
+  "Most businesses already sense that AI could help. What they don't have is a clear place to start. And too many AI agencies make it worse, overcomplicating simple problems or locking clients into tools they can never leave.",
+  "WeHA was started by two operators who had spent years building marketing and automation systems for other people. They decided to build the agency they wished existed: one that builds practical systems on the tools you already use, proves they work, then hands them over.",
+];
+
+const belief = "Automation should give you ownership and time back, not another subscription you're trapped in.";
+
+const mission =
+  "To make practical AI automation accessible to any business: built fast, built on the tools you already use, and built to be owned by you.";
+
+const vision =
+  "A world where small and mid-sized teams compete on ideas and service, not on how many hours they can grind, because the repetitive work runs itself.";
+
+const founders = [
+  {
+    name: "Imran Shaikh",
+    role: "Co-Founder",
+    photo: ASSET("/founders/imran.jpeg"),
+    alt: "Portrait of Imran Shaikh, Co-Founder of WeHA",
+    bio: "Imran is a full-stack marketer and AI systems builder with 8+ years across SEO, paid media, content, analytics and RevOps. He builds AI agents and automated workflows on a modern stack including OpenClaw, n8n, Claude Code and Zapier, and believes marketing and operations should run on systems, not manual effort. An IIM Kozhikode alum (Digital Marketing for Performance & Growth), he leads what WeHA builds: the automation systems and AI agents behind every engagement.",
+  },
+  {
+    name: "Selena Thomas",
+    role: "Co-Founder & COO",
+    photo: ASSET("/founders/selena.jpeg"),
+    alt: "Portrait of Selena Thomas, Co-Founder and COO of WeHA",
+    bio: "Selena is a digital marketing leader with experience across Mastercard, Merkle Sokrati and Cybage. She leads operations, client relationships and go-to-market at WeHA, making sure every engagement starts with the right questions and that clients get a clear, human experience from the first call to handoff.",
+    linkedin: "https://www.linkedin.com/in/selena-thomas-9839472b8/",
+  },
 ];
 
 const values = [
-  ["Specificity over vagueness", "We quote workflows, not \"efficiency gains.\""],
-  ["You own your automations", "We document everything and hand it over."],
-  ["Compliance is not optional", "Especially in real estate, finance, and freight."],
-  ["Pilot before you commit", "Every engagement starts with one workflow, proven ROI first."],
-  ["Plain English, always", "No jargon in client calls, proposals, or documentation."],
+  ["You own what we build", "Every system is documented and handed over. No lock-in, ever."],
+  ["Specific over vague", "We build named systems that solve real workflows, not fuzzy 'AI transformation.'"],
+  ["Your tools stay", "We automate on top of what you already use. No forced migrations."],
+  ["Prove it first", "Every engagement starts with one workflow and proven results before you expand."],
+  ["Plain English, always", "No jargon in calls, proposals, or docs. You always understand what's running."],
 ];
 
 export default function About() {
   return (
     <div data-testid="about-page" className="overflow-x-hidden">
       <Seo
-        title="About — built by a security engineer turned automator"
-        description="WeHA was founded by someone who spent a decade keeping systems secure. Every automation is compliance-grade, documented and auditable — no shortcuts."
+        title="About WeHA - the people behind your automation"
+        description="WeHA is an AI automation studio built by two operators who'd rather you spend time on what matters. We build practical systems on the tools you already use, and hand them over."
         path="/about"
       />
       <PageHero
-        title="Built by someone who spent a decade keeping systems secure — and a lot of time watching founders"
-        italicWord="lose theirs to manual work."
+        kicker="About"
+        title="We help businesses do more"
+        italicWord="with less manual work."
+        subtitle="WeHA exists because too many capable teams spend their days on work software should be doing for them. We build the systems that give that time back."
         formHeading="Get the AI Transformation Playbook"
         formTestid="about-lead-form"
         formSource="about"
       />
 
-      <IntegrationStrip heading="Tools we speak natively" />
+      <IntegrationStrip heading="The tools we build with" />
 
-      {/* Founder story */}
+      {/* SECTION 1 - OUR STORY */}
       <ScrollSection direction="left">
-      <section className="section-glass relative section-solid py-12 md:py-20">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 items-start">
+      <section className="section-glass relative section-solid py-12 md:py-20" data-testid="about-story">
+        <div className="max-w-3xl mx-auto px-5 sm:px-8">
           <Reveal>
-            <div className="rounded-2xl overflow-hidden border border-weha-border bg-weha-surface">
-              <img
-                src={ABOUT_IMG}
-                alt="WeHA founder illustration — security architecture meets automation"
-                loading="lazy"
-                className="w-full h-auto object-cover"
-                data-testid="about-illustration"
-              />
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="space-y-6 text-lg text-weha-text leading-relaxed">
-              <p>
-                The founder of WeHA spent ten years in enterprise security architecture — IAM,
-                access controls, the unglamorous discipline of making sure data only ever goes
-                where it's allowed to go.
-              </p>
-              <p className="text-weha-muted">
-                The inflection point was watching small business owners — friends, colleagues,
-                clients — drown in work that a $50/month n8n subscription could solve. Hours lost
-                every week to copying, chasing, and re-typing.
-              </p>
-              <p className="text-weha-muted">
-                The insight: most AI agencies are built by developers who don't understand
-                compliance risk. They automate first and ask permission later. WeHA was built by
-                someone who knows exactly what happens when data moves without controls.
-              </p>
-              <p>
-                So the decision was simple — build the automation agency that SMB founders in
-                regulated industries could actually trust.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-      </ScrollSection>
-
-      {/* Why security thinking matters */}
-      <ScrollSection direction="right">
-      <section className="section-glass py-20 md:py-28 bg-weha-surface border-y border-weha-border">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <Reveal>
-            <h2 className="weha-display text-4xl md:text-5xl text-weha-text max-w-3xl">
-              Why security thinking matters for automation.
+            <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">Why WeHA exists</span>
+            <h2 className="weha-display text-4xl md:text-5xl mt-3 text-weha-text leading-tight">
+              The work nobody should be doing by hand.
             </h2>
           </Reveal>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {securityPoints.map((p, i) => (
-              <Reveal key={i} delay={i * 0.08}>
-                <p className="text-lg text-weha-text leading-relaxed border-t-2 border-weha-teal pt-5">{p}</p>
+          <div className="mt-8 space-y-6 text-lg text-weha-muted leading-relaxed">
+            {story.map((p, i) => (
+              <Reveal key={i} delay={i * 0.06}>
+                <p className={i === 0 ? "text-weha-text" : ""}>{p}</p>
               </Reveal>
             ))}
           </div>
-          <Reveal delay={0.1}>
-            <p className="mt-14 weha-display text-3xl md:text-4xl text-weha-text italic max-w-4xl leading-snug">
-              "We build automation like we build security architecture: minimal permissions,
-              documented flows, zero assumptions."
+          <Reveal delay={0.2}>
+            <p className="mt-10 weha-display text-2xl md:text-3xl text-weha-text italic leading-snug border-l-[3px] border-weha-teal pl-5">
+              {belief}
             </p>
           </Reveal>
         </div>
       </section>
       </ScrollSection>
 
-      {/* Director + markets */}
-      <ScrollSection direction="left">
-      <section className="section-glass relative section-solid py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 grid gap-14 md:grid-cols-2 md:gap-16">
+      {/* SECTION 2 - MISSION & VISION */}
+      <ScrollSection direction="right">
+      <section className="section-glass py-20 md:py-28 bg-weha-surface border-y border-weha-border" data-testid="about-mission-vision">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 grid gap-12 md:grid-cols-2 md:gap-16">
           <Reveal>
             <div>
-              <span className="text-xs font-semibold tracking-widest uppercase text-weha-teal">The public face of WeHA</span>
-              <h3 className="weha-display text-3xl md:text-4xl mt-3 text-weha-text">[Director Name]</h3>
-              <p className="mt-5 text-weha-muted leading-relaxed text-lg">
-                [Director Name] leads client relationships and go-to-market — and makes sure every
-                engagement starts with the right questions before any code is written. The
-                technical founder stays behind the scenes, building.
-              </p>
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">Our mission</span>
+              <p className="weha-display text-3xl md:text-4xl mt-4 text-weha-text leading-snug">{mission}</p>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
             <div>
-              <span className="text-xs font-semibold tracking-widest uppercase text-weha-teal">Markets</span>
-              <ul className="mt-5 space-y-4 text-xl text-weha-text">
-                <li>🇦🇪 UAE — Dubai</li>
-                <li>🇦🇺 Australia</li>
-                <li>🇸🇬 Singapore</li>
-              </ul>
-              <p className="mt-6 text-weha-muted">Fully remote delivery. On-site available in Dubai.</p>
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">Our vision</span>
+              <p className="weha-display text-3xl md:text-4xl mt-4 text-weha-text leading-snug">{vision}</p>
             </div>
           </Reveal>
         </div>
       </section>
       </ScrollSection>
 
-      {/* Values */}
+      {/* SECTION 3 - MEET THE FOUNDERS */}
+      <ScrollSection direction="left">
+      <section className="section-glass relative section-solid py-20 md:py-28" data-testid="about-founders">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <Reveal>
+            <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">The team</span>
+            <h2 className="weha-display text-4xl md:text-5xl mt-3 text-weha-text">Meet the founders.</h2>
+          </Reveal>
+          <div className="mt-12 grid gap-8 md:grid-cols-2">
+            {founders.map((f, i) => (
+              <Reveal key={f.name} delay={(i % 2) * 0.1}>
+                <article className="weha-card h-full p-7 md:p-8" data-testid={`founder-card-${i + 1}`}>
+                  <div className="overflow-hidden rounded-2xl border border-weha-border bg-weha-surface aspect-square w-32 md:w-40">
+                    <img
+                      src={f.photo}
+                      alt={f.alt}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                      data-testid={`founder-photo-${i + 1}`}
+                    />
+                  </div>
+                  <div className="mt-6 flex items-center gap-3 flex-wrap">
+                    <h3 className="weha-display text-3xl text-weha-text">{f.name}</h3>
+                    {f.linkedin && (
+                      <Magnetic strength={0.3}>
+                        <a
+                          href={f.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${f.name} on LinkedIn`}
+                          data-cursor="hover"
+                          data-testid={`founder-linkedin-${i + 1}`}
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-weha-border text-weha-muted transition-colors hover:border-weha-teal hover:text-weha-teal"
+                        >
+                          <Linkedin size={16} />
+                        </a>
+                      </Magnetic>
+                    )}
+                  </div>
+                  <p className="mt-1 text-sm uppercase tracking-wider text-weha-teal">{f.role}</p>
+                  <p className="mt-4 text-weha-muted leading-relaxed">{f.bio}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+      </ScrollSection>
+
+      {/* SECTION 4 - VALUES */}
       <ScrollSection direction="right">
-      <section className="section-glass py-20 md:py-28 bg-weha-surface border-y border-weha-border">
+      <section className="section-glass py-20 md:py-28 bg-weha-surface border-y border-weha-border" data-testid="about-values">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
             <h2 className="weha-display text-4xl md:text-5xl text-weha-text">What we believe.</h2>
@@ -161,10 +188,12 @@ export default function About() {
       </section>
       </ScrollSection>
 
+      {/* SECTION 5 - CTA BANNER */}
       <ScrollSection direction="left">
       <CTABanner
-        heading="Compliance-grade automation, built around your business."
-        sub="Start with a free 60-minute audit. No code written until we've mapped the workflow."
+        heading="Let's give your team its time back."
+        sub="Start with a free AI Audit. We map how you work, then show you what's worth automating first."
+        cta="Book a Free Audit"
         testid="about-cta"
       />
       </ScrollSection>
