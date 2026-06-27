@@ -1,41 +1,56 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
+import { SCROLL_SPRING } from "@/lib/motion";
 
 /**
- * ScrollSection — wraps a page section with a scroll-linked
- * 3D slide-in effect. Sections shift in from left or right,
- * rotateY slightly for depth, fade in/out, and scale.
+ * ScrollSection — wraps a page section with a scroll-linked entrance.
+ *
+ * Premium behaviour:
+ *  - The progress is spring-smoothed so motion feels weighted, not mechanical.
+ *  - In `settle` mode the section animates IN once and then locks rock-steady
+ *    (no exit drift / tilt / fade) so content you're reading never wobbles.
+ *  - `depth` controls how much true 3D (rotateY) is used: 0 = flat slide for
+ *    body copy, up to 1 = bold 3D for hero/feature moments.
  *
  * Props:
- *   direction: "left" | "right"  (which side the section enters from)
- *   intensity: 0..1               (0 = subtle, 1 = bold). Default 0.6.
+ *   direction: "left" | "right"   side the section enters from
+ *   intensity: 0..1               overall amount of movement (default 0.45)
+ *   depth:     0..1               amount of 3D rotateY (default 1)
+ *   settle:    boolean            one-way settle (no exit animation)
  *   className: passthrough
  */
 export default function ScrollSection({
   children,
   direction = "left",
   intensity = 0.45,
+  depth = 1,
+  settle = false,
   className = "",
 }) {
   const ref = useRef(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
-    // Settle the section in its straight position over more of its visible life
-    offset: ["start 0.85", "end 0.15"],
+    offset: ["start 0.9", "end 0.1"],
   });
 
-  const xMul = direction === "left" ? -1 : 1;
-  const xIn = 70 * intensity * xMul;       // px the section starts off-screen
-  const xOut = -22 * intensity * xMul;     // small drift while leaving
-  const rotIn = 10 * intensity * xMul;     // entry rotation
-  const rotOut = -4 * intensity * xMul;    // exit rotation
+  // Weighted, premium scroll feel (not 1:1 with the wheel).
+  const p = useSpring(scrollYProgress, SCROLL_SPRING);
 
-  // Section is fully "settled" (no tilt) between ~18% and ~85% of its scroll life
-  const x        = useTransform(scrollYProgress, [0, 0.18, 0.85, 1], [xIn, 0, 0, xOut]);
-  const rotateY  = useTransform(scrollYProgress, [0, 0.18, 0.85, 1], [rotIn, 0, 0, rotOut]);
-  const opacity  = useTransform(scrollYProgress, [0, 0.12, 0.3, 0.9, 1], [0, 0.5, 1, 1, 0.9]);
-  const scale    = useTransform(scrollYProgress, [0, 0.22, 0.85, 1], [0.95, 1, 1, 0.98]);
+  const xMul = direction === "left" ? -1 : 1;
+  const xIn = 64 * intensity * xMul;
+  const rotIn = 8 * intensity * depth * xMul;
+
+  // One-way "settle": animate in, then hold perfectly still.
+  const xKeys = settle ? [xIn, 0, 0, 0] : [xIn, 0, 0, -20 * intensity * xMul];
+  const rotKeys = settle ? [rotIn, 0, 0, 0] : [rotIn, 0, 0, -4 * intensity * depth * xMul];
+  const opacityKeys = settle ? [0, 1, 1, 1] : [0, 1, 1, 0.92];
+  const scaleKeys = settle ? [0.975, 1, 1, 1] : [0.95, 1, 1, 0.98];
+
+  const x = useTransform(p, [0, 0.24, 0.85, 1], xKeys);
+  const rotateY = useTransform(p, [0, 0.24, 0.85, 1], rotKeys);
+  const opacity = useTransform(p, [0, 0.2, 0.85, 1], opacityKeys);
+  const scale = useTransform(p, [0, 0.24, 0.85, 1], scaleKeys);
 
   if (reduceMotion) {
     return <div className={className}>{children}</div>;
@@ -51,6 +66,7 @@ export default function ScrollSection({
         rotateY,
         opacity,
         scale,
+        position: "relative",
         transformPerspective: 1400,
         transformOrigin: direction === "left" ? "left center" : "right center",
         willChange: "transform, opacity",

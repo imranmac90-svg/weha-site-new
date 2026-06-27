@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, MousePointer2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import Parallax from "@/components/Parallax";
 import MaskReveal from "@/components/MaskReveal";
@@ -60,6 +60,17 @@ export default function Home() {
   const [wordIndex, setWordIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 
+  // Hero → first-section handoff: as the hero scrolls away it lifts + fades,
+  // synced with the network camera pulling the viewer inward.
+  const heroRef = useRef(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(heroProgress, [0, 1], [0, -80]);
+  const heroOpacity = useTransform(heroProgress, [0, 0.75], [1, 0]);
+  const cueOpacity = useTransform(heroProgress, [0, 0.2], [1, 0]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setVisible(false);
@@ -74,7 +85,7 @@ export default function Home() {
   return (
     <div data-testid="home-page" className="overflow-x-hidden">
       {/* HERO — over the live floating tech network */}
-      <section className="relative min-h-[88svh] flex items-center pointer-events-none overflow-hidden">
+      <section ref={heroRef} className="relative min-h-[88svh] flex items-center pointer-events-none overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -82,7 +93,10 @@ export default function Home() {
               "linear-gradient(to right, var(--weha-bg) 0%, var(--weha-bg) 24%, color-mix(in srgb, var(--weha-bg) 55%, transparent) 48%, transparent 76%)",
           }}
         />
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-8 w-full pt-20 pb-16">
+        <motion.div
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="relative max-w-7xl mx-auto px-5 sm:px-8 w-full pt-20 pb-16"
+        >
           <div className="max-w-3xl">
             <Reveal>
               <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase">
@@ -119,20 +133,26 @@ export default function Home() {
                     Book a Free AI Audit <ArrowRight size={16} />
                   </button>
                 </Magnetic>
-                <Link to="/services" className="btn-ghost" data-testid="hero-secondary-cta" data-cursor="hover">
-                  See How It Works <ArrowRight size={15} />
-                </Link>
+                <Magnetic strength={0.3}>
+                  <Link to="/services" className="btn-ghost" data-testid="hero-secondary-cta" data-cursor="hover">
+                    See How It Works <ArrowRight size={15} />
+                  </Link>
+                </Magnetic>
               </div>
             </Reveal>
           </div>
-        </div>
+        </motion.div>
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.1, duration: 1 }}
+          style={{ opacity: cueOpacity }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none"
         >
-          <span className="scroll-cue" />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.1, duration: 1 }}
+          >
+            <span className="scroll-cue" />
+          </motion.div>
         </motion.div>
       </section>
 
@@ -140,7 +160,7 @@ export default function Home() {
       <IntegrationStrip />
 
       {/* PAIN — glass cards floating over the network */}
-      <ScrollSection direction="left">
+      <ScrollSection direction="left" settle depth={0.25} intensity={0.4}>
       <section className="relative section-glass py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -169,7 +189,7 @@ export default function Home() {
       </ScrollSection>
 
       {/* HOW IT WORKS */}
-      <ScrollSection direction="right">
+      <ScrollSection direction="right" settle depth={0} intensity={0.4}>
       <section className="section-glass relative section-surface border-y border-weha-border py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -192,7 +212,7 @@ export default function Home() {
       </ScrollSection>
 
       {/* DIFFERENCE — dark security moment */}
-      <ScrollSection direction="left">
+      <ScrollSection direction="left" settle depth={1} intensity={0.6}>
       <section className="section-glass relative py-28 md:py-40 overflow-hidden" style={{ background: "#171614", "--weha-bg": "#171614", "--weha-text": "#f7f6f2" }}>
         <div
           className="absolute inset-0 opacity-[0.55]"
@@ -220,7 +240,7 @@ export default function Home() {
       </ScrollSection>
 
       {/* VERTICALS */}
-      <ScrollSection direction="right">
+      <ScrollSection direction="right" settle depth={0} intensity={0.4}>
       <section className="section-glass relative section-surface border-b border-weha-border py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -245,7 +265,7 @@ export default function Home() {
       </ScrollSection>
 
       {/* METRICS — over the network */}
-      <ScrollSection direction="left">
+      <ScrollSection direction="left" settle depth={0.7} intensity={0.5}>
       <section className="relative section-glass py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6">
           {metrics.map(([n, label], i) => (
@@ -261,7 +281,7 @@ export default function Home() {
       </ScrollSection>
 
       {/* CTA BANNER */}
-      <ScrollSection direction="right">
+      <ScrollSection direction="right" settle depth={0.35} intensity={0.45}>
       <section className="section-glass section-solid px-5 sm:px-8 pb-24">
         <div className="max-w-7xl mx-auto rounded-3xl px-8 py-16 md:px-16 md:py-24 relative overflow-hidden" style={{ background: "var(--weha-teal)" }}>
           <Reveal>

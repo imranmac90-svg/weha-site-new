@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { EASE, DUR } from "@/lib/motion";
 
 export default function Reveal({ children, delay = 0, y = 24, className = "", as = "div" }) {
   const MotionTag = motion[as] || motion.div;
@@ -8,7 +9,7 @@ export default function Reveal({ children, delay = 0, y = 24, className = "", as
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: DUR.reveal, delay, ease: EASE }}
     >
       {children}
     </MotionTag>

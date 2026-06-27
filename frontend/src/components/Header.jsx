@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Menu, X, Sun, Moon, ArrowRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useBooking } from "@/context/BookingContext";
+import Magnetic from "@/components/Magnetic";
 import Logo from "@/components/Logo";
 
 const links = [
@@ -82,9 +83,11 @@ export default function Header() {
             {theme === "light" ? <Moon size={17} /> : <Sun size={17} />}
           </button>
 
-          <Link to="/contact" className="btn-teal hidden sm:inline-flex" data-testid="header-cta" onClick={(e) => { e.preventDefault(); openBooking(); }}>
-            Book a Free Audit <ArrowRight size={16} />
-          </Link>
+          <Magnetic strength={0.3} className="hidden sm:inline-flex">
+            <Link to="/contact" className="btn-teal" data-testid="header-cta" data-cursor="hover" onClick={(e) => { e.preventDefault(); openBooking(); }}>
+              Book a Free Audit <ArrowRight size={16} />
+            </Link>
+          </Magnetic>
 
           <button
             onClick={() => setOpen((v) => !v)}

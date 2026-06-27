@@ -281,16 +281,17 @@ export default function NetworkScene() {
       if (!dragging) { dragRot.x += dragVel.x; dragRot.y += dragVel.y; }
 
       const autoRot = reduce ? 0 : t * 0.045;
-      // scroll reconfigures the network: it slowly rotates + drifts apart as the story unfolds
-      group.rotation.y = autoRot + dragRot.y + mouse.x * 0.25 + p * 0.9;
-      group.rotation.x = dragRot.x + mouse.y * 0.18 + Math.sin(t * 0.2) * 0.05 + p * 0.15;
-      const expand = 1 + p * 0.16 + Math.sin(t * 0.4) * 0.008;
+      // Backdrop stays calm while reading: the network drifts subtly on scroll
+      // instead of competing with the foreground. The hero dolly stays punchy.
+      group.rotation.y = autoRot + dragRot.y + mouse.x * 0.25 + p * 0.4;
+      group.rotation.x = dragRot.x + mouse.y * 0.18 + Math.sin(t * 0.2) * 0.05 + p * 0.08;
+      const expand = 1 + p * 0.08 + Math.sin(t * 0.4) * 0.008;
       group.scale.setScalar(expand);
 
       // camera dolly + parallax on scroll/mouse — continuous travel through the page
       camera.position.x += (mouse.x * 1.6 - camera.position.x) * 0.05;
       camera.position.y += (mouse.y * 1.0 - camera.position.y) * 0.05;
-      camera.position.z = 15 - hero * 4.5 - p * 2.2;
+      camera.position.z = 15 - hero * 4.5 - p * 1.2;
       camera.lookAt(0, 0, 0);
 
       // hub pulse
