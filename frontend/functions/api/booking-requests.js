@@ -1,9 +1,9 @@
-// POST /api/audit-requests  — stores a lead in D1 and emails a notification.
-// GET  /api/audit-requests   — returns recent leads (newest first).
+// POST /api/booking-requests  — stores a booking lead in D1 and emails a notification.
+// GET  /api/booking-requests   — returns recent bookings (newest first).
 
 import { notifyLead } from "../_lib/notify.js";
 
-const FORM_NAME = "audit_request";
+const FORM_NAME = "booking_request";
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -37,19 +37,21 @@ export async function onRequestPost({ request, env }) {
     process,
     contact_method: (body.contact_method || "").trim(),
     email: body.email ? String(body.email).trim() : null,
+    slot_iso_utc: body.slot_iso_utc ? String(body.slot_iso_utc).trim() : null,
+    timezone: body.timezone ? String(body.timezone).trim() : null,
     created_at: new Date().toISOString(),
   };
 
   try {
     await env.DB.prepare(
-      `INSERT INTO audit_requests
-       (id, form_name, source, name, company, country, industry, process, contact_method, email, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO booking_requests
+       (id, form_name, source, name, company, country, industry, process, contact_method, email, slot_iso_utc, timezone, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
       .bind(
         record.id, record.form_name, record.source, record.name, record.company,
         record.country, record.industry, record.process, record.contact_method,
-        record.email, record.created_at
+        record.email, record.slot_iso_utc, record.timezone, record.created_at
       )
       .run();
   } catch (err) {
@@ -57,10 +59,10 @@ export async function onRequestPost({ request, env }) {
   }
 
   await notifyLead(env, {
-    subject: `New WeHA audit request — ${record.company || record.name}`,
+    subject: `New WeHA booking request — ${record.company || record.name}`,
     replyTo: record.email,
     lines: [
-      `New audit request submitted via the WeHA site:`,
+      `New booking request submitted via the WeHA site:`,
       ``,
       `Name:           ${record.name}`,
       `Company:        ${record.company}`,
@@ -68,6 +70,8 @@ export async function onRequestPost({ request, env }) {
       `Industry:       ${record.industry}`,
       `Contact method: ${record.contact_method}`,
       `Email:          ${record.email || "—"}`,
+      `Slot (UTC):     ${record.slot_iso_utc || "—"}`,
+      `Timezone:       ${record.timezone || "—"}`,
       ``,
       `Process described:`,
       `${record.process}`,
@@ -85,8 +89,8 @@ export async function onRequestGet({ env }) {
   try {
     const { results } = await env.DB.prepare(
       `SELECT id, form_name, source, name, company, country, industry, process,
-              contact_method, email, created_at
-       FROM audit_requests
+              contact_method, email, slot_iso_utc, timezone, created_at
+       FROM booking_requests
        ORDER BY created_at DESC
        LIMIT 1000`
     ).all();

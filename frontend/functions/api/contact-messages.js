@@ -1,9 +1,9 @@
-// POST /api/audit-requests  — stores a lead in D1 and emails a notification.
-// GET  /api/audit-requests   — returns recent leads (newest first).
+// POST /api/contact-messages  — stores a contact message in D1 and emails a notification.
+// GET  /api/contact-messages   — returns recent contact messages (newest first).
 
 import { notifyLead } from "../_lib/notify.js";
 
-const FORM_NAME = "audit_request";
+const FORM_NAME = "contact_message";
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -42,7 +42,7 @@ export async function onRequestPost({ request, env }) {
 
   try {
     await env.DB.prepare(
-      `INSERT INTO audit_requests
+      `INSERT INTO contact_messages
        (id, form_name, source, name, company, country, industry, process, contact_method, email, created_at)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
@@ -57,10 +57,10 @@ export async function onRequestPost({ request, env }) {
   }
 
   await notifyLead(env, {
-    subject: `New WeHA audit request — ${record.company || record.name}`,
+    subject: `New WeHA contact message — ${record.company || record.name}`,
     replyTo: record.email,
     lines: [
-      `New audit request submitted via the WeHA site:`,
+      `New contact message submitted via the WeHA site:`,
       ``,
       `Name:           ${record.name}`,
       `Company:        ${record.company}`,
@@ -86,7 +86,7 @@ export async function onRequestGet({ env }) {
     const { results } = await env.DB.prepare(
       `SELECT id, form_name, source, name, company, country, industry, process,
               contact_method, email, created_at
-       FROM audit_requests
+       FROM contact_messages
        ORDER BY created_at DESC
        LIMIT 1000`
     ).all();

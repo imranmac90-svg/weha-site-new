@@ -3,7 +3,7 @@ import { ArrowRight, Calendar as CalendarIcon, Clock, Globe, Check, Loader2 } fr
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Calendar } from "@/components/ui/calendar";
-import { fetchAvailability, submitAuditRequest } from "@/lib/api";
+import { fetchAvailability, submitBookingRequest } from "@/lib/api";
 
 const TIMEZONES = [
   { label: "🇦🇪 UAE — GST",          value: "Asia/Dubai" },
@@ -103,8 +103,9 @@ export default function BookingModal({ open, onOpenChange }) {
     }
     setSubmitting(true);
     try {
-      await submitAuditRequest({
+      await submitBookingRequest({
         ...form,
+        source: "booking-modal",
         slot_iso_utc: selectedSlot?.iso_utc || null,
         timezone: selectedSlot ? tz : null,
       });

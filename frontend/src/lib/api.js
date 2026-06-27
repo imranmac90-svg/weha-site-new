@@ -10,6 +10,16 @@ export async function submitAuditRequest(payload) {
   return data;
 }
 
+export async function submitBookingRequest(payload) {
+  const { data } = await axios.post(`${API}/booking-requests`, payload);
+  return data;
+}
+
+export async function submitContactMessage(payload) {
+  const { data } = await axios.post(`${API}/contact-messages`, payload);
+  return data;
+}
+
 export async function fetchAvailability(dateYmd, tz) {
   const { data } = await axios.get(`${API}/availability`, {
     params: { date: dateYmd, tz },

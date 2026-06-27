@@ -5,7 +5,7 @@ import { submitAuditRequest } from "@/lib/api";
 
 const initial = { name: "", email: "", company: "", process: "" };
 
-export default function LeadForm({ heading = "Book your free AI Audit", testid = "lead-form" }) {
+export default function LeadForm({ heading = "Book your free AI Audit", testid = "lead-form", source = "lead-form" }) {
   const [form, setForm] = useState(initial);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -22,6 +22,7 @@ export default function LeadForm({ heading = "Book your free AI Audit", testid =
     try {
       await submitAuditRequest({
         ...form,
+        source,
         country: "Not specified",
         industry: "Not specified",
         contact_method: "Email",

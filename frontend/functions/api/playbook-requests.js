@@ -1,9 +1,9 @@
-// POST /api/audit-requests  — stores a lead in D1 and emails a notification.
-// GET  /api/audit-requests   — returns recent leads (newest first).
+// POST /api/playbook-requests  — stores a playbook lead in D1 and emails a notification.
+// GET  /api/playbook-requests   — returns recent playbook leads (newest first).
 
 import { notifyLead } from "../_lib/notify.js";
 
-const FORM_NAME = "audit_request";
+const FORM_NAME = "playbook_lead";
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -20,10 +20,10 @@ export async function onRequestPost({ request, env }) {
   }
 
   const name = (body.name || "").trim();
-  const process = (body.process || "").trim();
+  const email = body.email ? String(body.email).trim() : "";
 
-  if (!name || !process) {
-    return json({ detail: "Name and process description are required." }, 422);
+  if (!name || !email) {
+    return json({ detail: "Name and email are required." }, 422);
   }
 
   const record = {
@@ -32,24 +32,24 @@ export async function onRequestPost({ request, env }) {
     source: body.source ? String(body.source).trim() : null,
     name,
     company: (body.company || "").trim(),
-    country: (body.country || "").trim(),
+    designation: (body.designation || "").trim(),
+    email,
     industry: (body.industry || "").trim(),
-    process,
-    contact_method: (body.contact_method || "").trim(),
-    email: body.email ? String(body.email).trim() : null,
+    country: (body.country || "").trim(),
+    session_interest: (body.session_interest || "").trim(),
     created_at: new Date().toISOString(),
   };
 
   try {
     await env.DB.prepare(
-      `INSERT INTO audit_requests
-       (id, form_name, source, name, company, country, industry, process, contact_method, email, created_at)
+      `INSERT INTO playbook_leads
+       (id, form_name, source, name, company, designation, email, industry, country, session_interest, created_at)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
       .bind(
         record.id, record.form_name, record.source, record.name, record.company,
-        record.country, record.industry, record.process, record.contact_method,
-        record.email, record.created_at
+        record.designation, record.email, record.industry, record.country,
+        record.session_interest, record.created_at
       )
       .run();
   } catch (err) {
@@ -57,20 +57,18 @@ export async function onRequestPost({ request, env }) {
   }
 
   await notifyLead(env, {
-    subject: `New WeHA audit request — ${record.company || record.name}`,
+    subject: `New WeHA playbook lead — ${record.company || record.name}`,
     replyTo: record.email,
     lines: [
-      `New audit request submitted via the WeHA site:`,
+      `New playbook lead submitted via the WeHA site:`,
       ``,
-      `Name:           ${record.name}`,
-      `Company:        ${record.company}`,
-      `Country:        ${record.country}`,
-      `Industry:       ${record.industry}`,
-      `Contact method: ${record.contact_method}`,
-      `Email:          ${record.email || "—"}`,
-      ``,
-      `Process described:`,
-      `${record.process}`,
+      `Name:             ${record.name}`,
+      `Company:          ${record.company}`,
+      `Designation:      ${record.designation}`,
+      `Email:            ${record.email}`,
+      `Industry:         ${record.industry}`,
+      `Country:          ${record.country}`,
+      `Session interest: ${record.session_interest || "—"}`,
       ``,
       `Source:    ${record.source || "—"}`,
       `Submitted: ${record.created_at}`,
@@ -84,9 +82,9 @@ export async function onRequestPost({ request, env }) {
 export async function onRequestGet({ env }) {
   try {
     const { results } = await env.DB.prepare(
-      `SELECT id, form_name, source, name, company, country, industry, process,
-              contact_method, email, created_at
-       FROM audit_requests
+      `SELECT id, form_name, source, name, company, designation, email,
+              industry, country, session_interest, created_at
+       FROM playbook_leads
        ORDER BY created_at DESC
        LIMIT 1000`
     ).all();

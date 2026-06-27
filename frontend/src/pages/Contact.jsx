@@ -5,7 +5,7 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
 import Seo from "@/components/Seo";
-import { submitAuditRequest } from "@/lib/api";
+import { submitContactMessage } from "@/lib/api";
 import {
   Accordion,
   AccordionContent,
@@ -65,7 +65,7 @@ export default function Contact() {
     }
     setSubmitting(true);
     try {
-      await submitAuditRequest(form);
+      await submitContactMessage({ ...form, source: "contact-page" });
       setDone(true);
       toast.success("Request received — we'll reply within 24 hours.");
       setForm(initial);
