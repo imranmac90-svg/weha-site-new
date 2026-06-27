@@ -7,7 +7,6 @@ import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
-import ScrollProgress from "@/components/ScrollProgress";
 import ScrollPill from "@/components/ScrollPill";
 import Cursor from "@/components/Cursor";
 import NetworkScene from "@/three/NetworkScene";
@@ -22,7 +21,6 @@ import Resources from "@/pages/Resources";
 import ResourceWorkbooks from "@/pages/ResourceWorkbooks";
 import ResourceWorkflows from "@/pages/ResourceWorkflows";
 import ResourceEbooks from "@/pages/ResourceEbooks";
-import WehaAI from "@/pages/WehaAI";
 
 function scrollTop() {
   if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
@@ -58,7 +56,6 @@ function AnimatedRoutes() {
           <Route path="/resources/workbooks" element={<ResourceWorkbooks />} />
           <Route path="/resources/workflow-automations" element={<ResourceWorkflows />} />
           <Route path="/resources/ebooks" element={<ResourceEbooks />} />
-          <Route path="/weha-ai" element={<WehaAI />} />
         </Routes>
       </motion.main>
     </AnimatePresence>
@@ -70,7 +67,6 @@ function App() {
     <ThemeProvider>
       <BookingProvider>
         <SmoothScroll />
-        <ScrollProgress />
         <ScrollPill />
         <Cursor />
         <BrowserRouter>

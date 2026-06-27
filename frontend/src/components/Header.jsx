@@ -12,7 +12,6 @@ const links = [
   { to: "/work", label: "Work" },
   { to: "/resources", label: "Resources" },
   { to: "/about", label: "About" },
-  { to: "/weha-ai", label: "WeHA AI" },
   { to: "/contact", label: "Contact" },
 ];
 

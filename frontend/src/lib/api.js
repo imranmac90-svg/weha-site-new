@@ -23,15 +23,9 @@ export async function submitPlaybookLead(payload) {
 }
 
 // WeHA AI — chat with the automation assistant.
-export async function sendWehaAiMessage({ session_id, messages, model }) {
-  const { data } = await axios.post(`${API}/weha-ai/chat`, { session_id, messages, model });
-  return data; // { reply, model, mocked }
-}
-
-export async function fetchWehaAiModels() {
-  const { data } = await axios.get(`${API}/weha-ai/models`);
-  return data; // { models: [...], default: "..." }
-}
+// NOTE: WeHA AI was moved out of the live site. The helpers
+// (sendWehaAiMessage / fetchWehaAiModels) now live in
+// /future-development/frontend/lib/api-weha-ai.js
 
 // Placeholder download URL for the AI Transformation Playbook
 export const PLAYBOOK_DOWNLOAD_URL =
