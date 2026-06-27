@@ -2,6 +2,7 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { BookingProvider } from "@/context/BookingContext";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -26,26 +27,28 @@ function ScrollToTop() {
 function App() {
   return (
     <ThemeProvider>
-      <SmoothScroll />
-      <Cursor />
-      <NetworkScene />
-      <BrowserRouter>
-        <ScrollToTop />
-        <div className="relative z-10 text-weha-text">
-          <Header />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/work" element={<Work />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-        <Toaster position="bottom-right" />
-      </BrowserRouter>
+      <BookingProvider>
+        <SmoothScroll />
+        <Cursor />
+        <NetworkScene />
+        <BrowserRouter>
+          <ScrollToTop />
+          <div className="relative z-10 text-weha-text">
+            <Header />
+            <main>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/work" element={<Work />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+          <Toaster position="bottom-right" />
+        </BrowserRouter>
+      </BookingProvider>
     </ThemeProvider>
   );
 }

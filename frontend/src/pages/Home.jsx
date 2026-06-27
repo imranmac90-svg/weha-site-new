@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import Parallax from "@/components/Parallax";
 import MaskReveal from "@/components/MaskReveal";
 import Magnetic from "@/components/Magnetic";
+import { useBooking } from "@/context/BookingContext";
 
 const pains = [
   "I'm manually copying Bayut leads into our spreadsheet every morning. Takes 2 hours.",
@@ -41,6 +42,7 @@ const metrics = [
 ];
 
 export default function Home() {
+  const { openBooking } = useBooking();
   return (
     <div data-testid="home-page">
       {/* HERO — over the live floating tech network */}
@@ -77,9 +79,9 @@ export default function Home() {
             <Reveal delay={0.45}>
               <div className="mt-9 flex flex-wrap items-center gap-5 pointer-events-auto">
                 <Magnetic>
-                  <Link to="/contact" className="btn-teal" data-testid="hero-primary-cta" data-cursor="hover">
+                  <button type="button" onClick={openBooking} className="btn-teal" data-testid="hero-primary-cta" data-cursor="hover">
                     Book a Free AI Audit <ArrowRight size={16} />
-                  </Link>
+                  </button>
                 </Magnetic>
                 <Link to="/services" className="btn-ghost" data-testid="hero-secondary-cta" data-cursor="hover">
                   See How It Works <ArrowRight size={15} />
@@ -230,14 +232,15 @@ export default function Home() {
           </Reveal>
           <Reveal delay={0.18}>
             <Magnetic>
-              <Link
-                to="/contact"
+              <button
+                type="button"
+                onClick={openBooking}
                 data-testid="home-banner-cta"
                 data-cursor="hover"
                 className="mt-9 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-medium text-[var(--weha-teal)] transition-transform hover:-translate-y-0.5"
               >
                 Book My Free Audit <ArrowUpRight size={17} />
-              </Link>
+              </button>
             </Magnetic>
           </Reveal>
         </div>

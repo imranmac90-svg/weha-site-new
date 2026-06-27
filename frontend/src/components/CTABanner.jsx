@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import { useBooking } from "@/context/BookingContext";
 
 export default function CTABanner({ heading, sub, cta = "Book My Free Audit", testid = "cta-banner" }) {
+  const { openBooking } = useBooking();
   return (
     <section className="px-5 sm:px-8 py-20 md:py-24" data-testid={testid}>
       <div
@@ -18,13 +19,14 @@ export default function CTABanner({ heading, sub, cta = "Book My Free Audit", te
           </Reveal>
         )}
         <Reveal delay={0.14}>
-          <Link
-            to="/contact"
+          <button
+            type="button"
+            onClick={openBooking}
             data-testid={`${testid}-link`}
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-medium text-[var(--weha-teal)] transition-transform hover:-translate-y-0.5"
           >
             {cta} <ArrowUpRight size={17} />
-          </Link>
+          </button>
         </Reveal>
       </div>
     </section>

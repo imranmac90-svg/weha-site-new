@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X, Sun, Moon, ArrowRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import { useBooking } from "@/context/BookingContext";
 import Logo from "@/components/Logo";
 
 const links = [
@@ -14,6 +15,7 @@ const links = [
 
 export default function Header() {
   const { theme, toggle } = useTheme();
+  const { openBooking } = useBooking();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -80,7 +82,7 @@ export default function Header() {
             {theme === "light" ? <Moon size={17} /> : <Sun size={17} />}
           </button>
 
-          <Link to="/contact" className="btn-teal hidden sm:inline-flex" data-testid="header-cta">
+          <Link to="/contact" className="btn-teal hidden sm:inline-flex" data-testid="header-cta" onClick={(e) => { e.preventDefault(); openBooking(); }}>
             Book a Free Audit <ArrowRight size={16} />
           </Link>
 
@@ -122,7 +124,7 @@ export default function Header() {
           ))}
           <Link
             to="/contact"
-            onClick={() => setOpen(false)}
+            onClick={(e) => { e.preventDefault(); setOpen(false); openBooking(); }}
             className="btn-teal mt-8 justify-center"
             data-testid="mobile-cta"
           >

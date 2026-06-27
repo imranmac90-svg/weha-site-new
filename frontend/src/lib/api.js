@@ -9,3 +9,10 @@ export async function submitAuditRequest(payload) {
   const { data } = await axios.post(`${API}/audit-requests`, payload);
   return data;
 }
+
+export async function fetchAvailability(dateYmd, tz) {
+  const { data } = await axios.get(`${API}/availability`, {
+    params: { date: dateYmd, tz },
+  });
+  return data; // [{ label, iso_utc, taken }]
+}

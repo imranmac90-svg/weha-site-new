@@ -104,6 +104,21 @@
 user_problem_statement: "After pulling the weha-site repo from GitHub, the app was broken because the .env files are gitignored and were not restored on import. Restore environment files and verify backend API is working."
 
 backend:
+  - task: "Booking availability endpoint + slot-aware audit-requests"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added GET /api/availability?date=YYYY-MM-DD&tz=<IANA> that returns Mon-Fri 9:00-18:00 30-min slots in the selected timezone, converted to UTC ISO keys, with 'taken' true if already booked. Allowed timezones: Asia/Dubai, Australia/Sydney, Asia/Singapore, Asia/Kolkata, America/New_York. POST /api/audit-requests now accepts optional slot_iso_utc + timezone, validates the slot is in the future, rejects double-booking (409). Needs verification: (a) /api/availability rejects invalid tz with 400, (b) returns [] for weekends, (c) skips past slots if date == today, (d) creating an audit request with a slot makes that slot appear 'taken' on subsequent /availability, (e) attempting to book the same slot twice returns 409, (f) legacy POST /api/audit-requests WITHOUT slot still works (backwards compatible)."
+        - working: true
+          agent: "testing"
+          comment: "✅ VERIFIED: All 16 test scenarios passed. GET /api/availability: (1) Returns 18 slots for future weekday with correct structure (label, iso_utc, taken), (2) Works with all allowed timezones (Dubai, Sydney, Kolkata, Singapore, New_York) with correct UTC offset conversion, (3) Rejects invalid timezone (Europe/London) with 400, (4) Rejects bad date format with 400, (5) Returns empty list for weekend dates, (6) Returns empty list for past dates. POST /api/audit-requests with slot: (7) Successfully creates booking with slot_iso_utc and timezone, (8) Booked slot correctly marked as taken:true in subsequent availability check, (9) Double-booking prevention works (409 with 'slot was just taken' message), (10) Rejects past slot with 422, (11) Rejects invalid slot format with 422, (12) Backwards compatible - works without slot_iso_utc, (13) Existing validation still works (empty name returns 422). Regression: (14) GET /api/ returns {message: WeHA API}, (15) GET /api/audit-requests includes bookings with slot_iso_utc populated. All endpoints working correctly."
+
   - task: "Restore backend/.env (MONGO_URL, DB_NAME, CORS_ORIGINS)"
     implemented: true
     working: true
@@ -150,7 +165,7 @@ frontend:
 metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 2
+  test_sequence: 3
   run_ui: false
 
 test_plan:
@@ -193,3 +208,5 @@ agent_communication:
       message: "✅ ALL BACKEND TESTS PASSED (7/7). Created /app/backend_test.py and verified all endpoints: GET /api/ returns correct message, POST/GET /api/status working with proper data persistence, POST /api/audit-requests accepts valid data and correctly validates empty name/process (returns 422), GET /api/audit-requests returns sorted list. MongoDB connection successful. Backend logs clean. No issues found. Backend is fully operational after .env restoration."
     - agent: "testing"
       message: "✅ MOBILE MENU BUG FIX VERIFIED. Tested on mobile viewport (390x844) in both light and dark modes. Header and menu backgrounds are fully opaque with correct colors. No 3D network elements bleeding through the visible menu area. All navigation and CTA functionality working correctly. Screenshots confirm the fix is successful."
+    - agent: "testing"
+      message: "✅ BOOKING SYSTEM FULLY VERIFIED (16/16 tests passed). Created /app/backend_test_booking.py and comprehensively tested all new booking endpoints. GET /api/availability works correctly with all allowed timezones (Dubai, Sydney, Kolkata, Singapore, New_York), rejects invalid timezones with 400, handles weekends/past dates correctly, returns 18 slots (9:00-17:30) for weekdays. POST /api/audit-requests with slot booking: successfully creates bookings with slot_iso_utc, marks slots as taken, prevents double-booking (409), validates past slots (422), validates invalid formats (422), maintains backwards compatibility (works without slot). All regression tests passed. No issues found."
