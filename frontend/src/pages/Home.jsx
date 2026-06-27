@@ -24,9 +24,9 @@ const steps = [
 ];
 
 const whyWeha = [
-  "You own every system we build — no lock-in, no monthly hostage fees.",
+  "You own every system we build, no lock-in, no monthly hostage fees.",
   "We automate on top of the tools you already use. No rip-and-replace.",
-  "Live systems in days, not months — you see value almost immediately.",
+  "Live systems in days, not months. You see value almost immediately.",
   "Every automation is documented and handed off, so your team stays in control.",
 ];
 
@@ -34,9 +34,9 @@ const capabilities = [
   { name: "Lead Capture & Follow-up", example: "Every enquiry answered and routed in seconds, day or night." },
   { name: "Client Onboarding", example: "New clients set up and active without the manual back-and-forth." },
   { name: "Quotes & Proposals", example: "Turn a request into a sent quote in minutes, not hours." },
-  { name: "Reporting & Dashboards", example: "Your numbers compiled automatically — no more manual spreadsheets." },
+  { name: "Reporting & Dashboards", example: "Your numbers compiled automatically, no more manual spreadsheets." },
   { name: "Data Sync", example: "Your tools finally talk to each other. Enter data once, everywhere." },
-  { name: "Reminders & Notifications", example: "Nothing slips through the cracks — follow-ups happen on their own." },
+  { name: "Reminders & Notifications", example: "Nothing slips through the cracks. Follow-ups happen on their own." },
 ];
 
 const metrics = [
@@ -88,7 +88,7 @@ export default function Home() {
     <div data-testid="home-page" className="overflow-x-hidden">
       <Seo
         title=""
-        description="We Help Automate (WeHA) turns your messiest manual workflows into AI systems that run themselves — built in days, not months. Book a free AI Audit."
+        description="We Help Automate (WeHA) turns your messiest manual workflows into AI systems that run themselves, built in days, not months. Book a free AI Audit."
         path="/"
         jsonLd={{
           "@context": "https://schema.org",
@@ -98,12 +98,12 @@ export default function Home() {
           url: "https://www.wehelpautomate.com",
           email: "hi@wehelpautomate.com",
           description:
-            "AI automation for SMBs. We turn your messiest manual workflows into systems that run themselves — built in days, not months.",
+            "AI automation for SMBs. We turn your messiest manual workflows into systems that run themselves, built in days, not months.",
           areaServed: "Worldwide",
           sameAs: ["https://www.linkedin.com/company/we-help-automate"],
         }}
       />
-      {/* HERO — over the live floating tech network */}
+      {/* HERO - over the live floating tech network */}
       <section ref={heroRef} className="relative min-h-[88svh] flex items-center pointer-events-none overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -175,10 +175,10 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* INTEGRATION LOGO TICKER — tool fluency */}
+      {/* INTEGRATION LOGO TICKER - tool fluency */}
       <IntegrationStrip />
 
-      {/* PAIN — glass cards floating over the network */}
+      {/* PAIN - glass cards floating over the network */}
       <ScrollSection direction="left" settle depth={0.25} intensity={0.4}>
       <section className="relative section-glass py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -200,7 +200,7 @@ export default function Home() {
           <Reveal delay={0.1}>
             <p className="mt-12 weha-display text-2xl md:text-4xl text-weha-text max-w-3xl leading-snug">
               These are the exact bottlenecks we automate{" "}
-              <span className="italic text-weha-teal">first</span> — whatever business you run.
+              <span className="italic text-weha-teal">first</span>, whatever business you run.
             </p>
           </Reveal>
         </div>
@@ -230,7 +230,7 @@ export default function Home() {
       </section>
       </ScrollSection>
 
-      {/* DIFFERENCE — dark moment */}
+      {/* DIFFERENCE - dark moment */}
       <ScrollSection direction="left" settle depth={1} intensity={0.6}>
       <section className="section-glass relative py-28 md:py-40 overflow-hidden" style={{ background: "#171614", "--weha-bg": "#171614", "--weha-text": "#f7f6f2" }}>
         <div
@@ -240,7 +240,7 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-5 sm:px-8 grid gap-14 md:grid-cols-2 md:gap-20 md:items-center">
           <Reveal>
             <h2 className="weha-display text-4xl md:text-6xl text-[#f7f6f2] leading-[1.05]">
-              Built to run without us — and{" "}
+              Built to run without us, and{" "}
               <span className="italic" style={{ color: "#9b80e0" }}>without lock-in.</span>
             </h2>
           </Reveal>
@@ -280,7 +280,7 @@ export default function Home() {
       </section>
       </ScrollSection>
 
-      {/* METRICS — over the network */}
+      {/* METRICS - over the network */}
       <ScrollSection direction="left" settle depth={0.7} intensity={0.5}>
       <section className="relative section-glass py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6">
@@ -307,7 +307,7 @@ export default function Home() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-6 text-white/85 text-lg max-w-2xl leading-relaxed">
-              Book a free AI Audit. We'll map your top 3 automatable workflows — and build one
+              Book a free AI Audit. We'll map your top 3 automatable workflows, and build one
               live on the call.
             </p>
           </Reveal>
