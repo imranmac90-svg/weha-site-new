@@ -1,6 +1,7 @@
 import PageHero from "@/components/PageHero";
 import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
+import ScrollSection from "@/components/ScrollSection";
 
 const services = [
   {
@@ -44,7 +45,7 @@ const scoping = [
 
 export default function Services() {
   return (
-    <div data-testid="services-page">
+    <div data-testid="services-page" className="overflow-x-hidden">
       <PageHero
         kicker="Services"
         title="Three things we build. One outcome:"
@@ -54,6 +55,7 @@ export default function Services() {
         formTestid="services-lead-form"
       />
 
+      <ScrollSection direction="left">
       <section className="relative section-solid py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-8">
           {services.map((s, i) => (
@@ -88,7 +90,9 @@ export default function Services() {
           ))}
         </div>
       </section>
+      </ScrollSection>
 
+      <ScrollSection direction="right">
       <section className="py-20 md:py-28 bg-weha-surface border-y border-weha-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -106,13 +110,16 @@ export default function Services() {
           </div>
         </div>
       </section>
+      </ScrollSection>
 
+      <ScrollSection direction="left">
       <CTABanner
         heading="Not sure which service fits? Start with the audit."
         sub="Sixty minutes. We map your workflows, then tell you which one is worth automating first."
         cta="Start With the Audit"
         testid="services-cta"
       />
+      </ScrollSection>
     </div>
   );
 }

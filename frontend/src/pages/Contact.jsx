@@ -3,6 +3,7 @@ import { ArrowRight, Mail, MessageCircle, Linkedin, Clock } from "lucide-react";
 import { toast } from "sonner";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import ScrollSection from "@/components/ScrollSection";
 import { submitAuditRequest } from "@/lib/api";
 import {
   Accordion,
@@ -72,7 +73,7 @@ export default function Contact() {
   };
 
   return (
-    <div data-testid="contact-page">
+    <div data-testid="contact-page" className="overflow-x-hidden">
       <PageHero
         kicker="Contact"
         title="Let's find your"
@@ -81,6 +82,7 @@ export default function Contact() {
         showForm={false}
       />
 
+      <ScrollSection direction="left">
       <section className="relative section-solid pb-8 pt-4">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -95,8 +97,10 @@ export default function Contact() {
           </Reveal>
         </div>
       </section>
+      </ScrollSection>
 
-      <section className="py-12 md:py-16">
+      <ScrollSection direction="right" intensity={0.4}>
+      <section className="section-glass py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid gap-12 lg:grid-cols-[1.3fr_0.9fr] lg:gap-16">
           {/* FORM */}
           <Reveal>
@@ -205,8 +209,10 @@ export default function Contact() {
           </Reveal>
         </div>
       </section>
+      </ScrollSection>
 
       {/* FAQ */}
+      <ScrollSection direction="left">
       <section className="py-20 md:py-28 bg-weha-surface border-t border-weha-border">
         <div className="max-w-3xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -228,6 +234,7 @@ export default function Contact() {
           </Reveal>
         </div>
       </section>
+      </ScrollSection>
     </div>
   );
 }

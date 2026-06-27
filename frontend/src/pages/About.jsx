@@ -1,6 +1,7 @@
 import PageHero from "@/components/PageHero";
 import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
+import ScrollSection from "@/components/ScrollSection";
 
 const ABOUT_IMG = "https://static.prod-images.emergentagent.com/jobs/d99f9931-db5c-4ca2-b931-d6fcff8ded90/images/258b624bb01106851a47a12dd52dbd36909965f6f8188fe7423bb709d4ef20c2.png";
 
@@ -20,7 +21,7 @@ const values = [
 
 export default function About() {
   return (
-    <div data-testid="about-page">
+    <div data-testid="about-page" className="overflow-x-hidden">
       <PageHero
         title="Built by someone who spent a decade keeping systems secure — and a lot of time watching founders"
         italicWord="lose theirs to manual work."
@@ -29,6 +30,7 @@ export default function About() {
       />
 
       {/* Founder story */}
+      <ScrollSection direction="left">
       <section className="relative section-solid py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 items-start">
           <Reveal>
@@ -67,8 +69,10 @@ export default function About() {
           </Reveal>
         </div>
       </section>
+      </ScrollSection>
 
       {/* Why security thinking matters */}
+      <ScrollSection direction="right">
       <section className="py-20 md:py-28 bg-weha-surface border-y border-weha-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -91,8 +95,10 @@ export default function About() {
           </Reveal>
         </div>
       </section>
+      </ScrollSection>
 
       {/* Director + markets */}
+      <ScrollSection direction="left">
       <section className="relative section-solid py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid gap-14 md:grid-cols-2 md:gap-16">
           <Reveal>
@@ -119,8 +125,10 @@ export default function About() {
           </Reveal>
         </div>
       </section>
+      </ScrollSection>
 
       {/* Values */}
+      <ScrollSection direction="right">
       <section className="py-20 md:py-28 bg-weha-surface border-y border-weha-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -141,12 +149,15 @@ export default function About() {
           </div>
         </div>
       </section>
+      </ScrollSection>
 
+      <ScrollSection direction="left">
       <CTABanner
         heading="Compliance-grade automation, built around your business."
         sub="Start with a free 60-minute audit. No code written until we've mapped the workflow."
         testid="about-cta"
       />
+      </ScrollSection>
     </div>
   );
 }

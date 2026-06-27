@@ -1,6 +1,7 @@
 import PageHero from "@/components/PageHero";
 import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
+import ScrollSection from "@/components/ScrollSection";
 import { ArrowRight, ArrowDown } from "lucide-react";
 
 const snapshots = [
@@ -84,7 +85,7 @@ function FlowChain({ before, after }) {
 
 export default function Work() {
   return (
-    <div data-testid="work-page">
+    <div data-testid="work-page" className="overflow-x-hidden">
       <PageHero
         kicker="Work"
         title="What automation looks like in the"
@@ -94,6 +95,7 @@ export default function Work() {
         formTestid="work-lead-form"
       />
 
+      <ScrollSection direction="left">
       <section className="relative section-solid py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-10">
           {snapshots.map((s, i) => (
@@ -138,7 +140,9 @@ export default function Work() {
           ))}
         </div>
       </section>
+      </ScrollSection>
 
+      <ScrollSection direction="right">
       <section className="py-16 md:py-20 bg-weha-surface border-y border-weha-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -153,13 +157,16 @@ export default function Work() {
           </Reveal>
         </div>
       </section>
+      </ScrollSection>
 
+      <ScrollSection direction="left">
       <CTABanner
         heading="Your workflow could be next. Start with the audit."
         sub="Tell us the manual process eating your week. We'll show you the automated version — live."
         cta="Start With the Audit"
         testid="work-cta"
       />
+      </ScrollSection>
     </div>
   );
 }
