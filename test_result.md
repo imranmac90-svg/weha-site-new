@@ -162,5 +162,34 @@ test_plan:
 agent_communication:
     - agent: "main"
       message: "Repo was imported from GitHub but .env files were gitignored. Recreated both backend/.env and frontend/.env. Backend supervisor restarted; /api/ root responds. Please verify all backend endpoints: GET /api/, POST /api/status with body {client_name}, GET /api/status, POST /api/audit-requests with all fields (including the validation: empty name or empty process should return 422), and GET /api/audit-requests."
+    - agent: "main"
+      message: "BUG FIX — Mobile menu had no opaque background on mobile devices: header bar (top 64px) stayed transparent when scrollY=0 so the 3D network chips bled through the top edge of the open menu. Fixed in src/components/Header.jsx by (1) forcing header to solid bg-weha-bg when mobile menu is open and (2) adding explicit z-40 to the mobile menu panel for cross-browser stacking stability. Please verify on mobile viewport (e.g. 390x844): opening the mobile menu must show a fully opaque background — light cream (#f7f6f2) in light mode, dark (#171614) in dark mode — with NO 3D network chips/text visible through the menu area (including the top header bar). Also confirm tapping a nav link closes the menu and navigates. Toggle theme button and 'Book a Free Audit' CTA inside the menu should still work."
+
+frontend:
+  - task: "Mobile menu background (light + dark themes)"
+    implemented: true
+    working: true
+    file: "frontend/src/components/Header.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "On mobile devices, the open mobile menu had no visible background; the 3D network scene chips/text on the landing page bled through, making the menu items hard to read."
+        - working: "NA"
+          agent: "main"
+          comment: "Root cause: the mobile menu panel itself had bg-weha-bg, but the parent <header> bar (top 64px) remained bg-transparent when scrollY=0, so the network chips showed through the top edge of the menu — perceived as 'no background'. Fix: (1) header now switches to solid bg-weha-bg + border when mobile menu is open, (2) mobile menu panel given explicit z-40 for stacking stability. Needs verification at mobile viewport in BOTH light and dark themes."
+        - working: true
+          agent: "testing"
+          comment: "✅ VERIFIED on mobile viewport (390x844). LIGHT MODE: Header background is opaque cream rgb(247, 246, 242), mobile menu background is opaque cream rgb(247, 246, 242), z-index correctly set to 40. NO 3D network chips visible in menu area. DARK MODE: Header background is opaque dark rgb(23, 22, 20), mobile menu background is opaque dark rgb(23, 22, 20). NO 3D network chips visible in menu area. FUNCTIONAL TESTS: Navigation links work correctly and close menu, CTA button navigates to /contact successfully. Screenshots confirm clean, opaque backgrounds in both themes with no bleed-through. Bug fix is successful."
+
+agent_communication:
+    - agent: "main"
+      message: "Repo was imported from GitHub but .env files were gitignored. Recreated both backend/.env and frontend/.env. Backend supervisor restarted; /api/ root responds. Please verify all backend endpoints: GET /api/, POST /api/status with body {client_name}, GET /api/status, POST /api/audit-requests with all fields (including the validation: empty name or empty process should return 422), and GET /api/audit-requests."
+    - agent: "main"
+      message: "BUG FIX — Mobile menu had no opaque background on mobile devices: header bar (top 64px) stayed transparent when scrollY=0 so the 3D network chips bled through the top edge of the open menu. Fixed in src/components/Header.jsx by (1) forcing header to solid bg-weha-bg when mobile menu is open and (2) adding explicit z-40 to the mobile menu panel for cross-browser stacking stability. Please verify on mobile viewport (e.g. 390x844): opening the mobile menu must show a fully opaque background — light cream (#f7f6f2) in light mode, dark (#171614) in dark mode — with NO 3D network chips/text visible through the menu area (including the top header bar). Also confirm tapping a nav link closes the menu and navigates. Toggle theme button and 'Book a Free Audit' CTA inside the menu should still work."
     - agent: "testing"
       message: "✅ ALL BACKEND TESTS PASSED (7/7). Created /app/backend_test.py and verified all endpoints: GET /api/ returns correct message, POST/GET /api/status working with proper data persistence, POST /api/audit-requests accepts valid data and correctly validates empty name/process (returns 422), GET /api/audit-requests returns sorted list. MongoDB connection successful. Backend logs clean. No issues found. Backend is fully operational after .env restoration."
+    - agent: "testing"
+      message: "✅ MOBILE MENU BUG FIX VERIFIED. Tested on mobile viewport (390x844) in both light and dark modes. Header and menu backgrounds are fully opaque with correct colors. No 3D network elements bleeding through the visible menu area. All navigation and CTA functionality working correctly. Screenshots confirm the fix is successful."

@@ -33,7 +33,9 @@ export default function Header() {
     <header
       data-testid="site-header"
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
+        open
+          ? "bg-weha-bg border-b border-weha-border"
+          : scrolled
           ? "backdrop-blur-xl bg-weha-bg/80 border-b border-weha-border"
           : "bg-transparent border-b border-transparent"
       }`}
@@ -96,7 +98,7 @@ export default function Header() {
       {/* Mobile full-screen overlay */}
       <div
         data-testid="mobile-menu"
-        className={`md:hidden fixed inset-0 top-16 bg-weha-bg transition-all duration-300 ${
+        className={`md:hidden fixed inset-0 top-16 z-40 bg-weha-bg transition-all duration-300 ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
