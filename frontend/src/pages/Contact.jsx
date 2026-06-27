@@ -4,7 +4,6 @@ import { toast } from "sonner";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
-import IntegrationStrip from "@/components/IntegrationStrip";
 import { submitAuditRequest } from "@/lib/api";
 import {
   Accordion,
@@ -12,12 +11,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-const expectations = [
-  "We map your most time-consuming manual workflows.",
-  "We identify which are automatable today with your current tools.",
-  "We build a rough version of one automation live — you'll see it working before we end.",
-];
 
 const industries = [
   "Real Estate",
@@ -91,25 +84,6 @@ export default function Contact() {
         subtitle="Book a free 60-minute AI Audit. We'll map your top 3 manual workflows and show you what one automation would look like — live, for your specific business."
         showForm={false}
       />
-
-      <IntegrationStrip heading="Bring your stack — we'll wire it up" />
-
-      <ScrollSection direction="left">
-        <section className="section-glass relative pb-8 pt-4">
-          <div className="max-w-7xl mx-auto px-5 sm:px-8">
-            <Reveal>
-              <ul className="grid gap-5 md:grid-cols-3">
-                {expectations.map((x, i) => (
-                  <li key={i} className="flex gap-3 text-weha-text">
-                    <span className="text-weha-teal text-lg leading-none mt-0.5">✦</span>
-                    <span className="leading-relaxed">{x}</span>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-        </section>
-      </ScrollSection>
 
       <ScrollSection direction="right" intensity={0.4}>
         <section className="section-glass py-12 md:py-16">
