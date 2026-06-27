@@ -89,7 +89,7 @@
     }
     body {
         margin: 0;
-        font-family: 'General Sans', ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
         background-color: var(--weha-bg);
         color: var(--weha-text);
         -webkit-font-smoothing: antialiased;
