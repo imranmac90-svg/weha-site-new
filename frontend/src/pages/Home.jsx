@@ -141,7 +141,7 @@ export default function Home() {
 
       {/* PAIN — glass cards floating over the network */}
       <ScrollSection direction="left">
-      <section className="relative py-24 md:py-32">
+      <section className="relative section-glass py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
             <h2 className="weha-display text-4xl md:text-6xl text-weha-text">Sound familiar?</h2>
@@ -246,7 +246,7 @@ export default function Home() {
 
       {/* METRICS — over the network */}
       <ScrollSection direction="left">
-      <section className="relative py-20 md:py-28">
+      <section className="relative section-glass py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6">
           {metrics.map(([n, label], i) => (
             <Parallax key={label} speed={18 + i * 8}>

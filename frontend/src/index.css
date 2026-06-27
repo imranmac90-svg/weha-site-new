@@ -239,6 +239,31 @@
     }
     .section-solid { background: var(--weha-bg); }
     .section-surface { background: var(--weha-surface); }
+    /* Semi-opaque backdrop for sections that overlay the network scene —
+       keeps a subtle hint of the canvas while ensuring text legibility. */
+    .section-glass {
+        position: relative;
+    }
+    .section-glass::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--weha-bg);
+        opacity: 0.92;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .section-glass > * {
+        position: relative;
+        z-index: 1;
+    }
+    @supports (backdrop-filter: blur(12px)) {
+        .section-glass::before {
+            opacity: 0.78;
+            backdrop-filter: blur(14px) saturate(1.05);
+            -webkit-backdrop-filter: blur(14px) saturate(1.05);
+        }
+    }
 
     .scroll-cue {
         width: 24px;

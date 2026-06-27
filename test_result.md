@@ -181,6 +181,24 @@ agent_communication:
       message: "BUG FIX — Mobile menu had no opaque background on mobile devices: header bar (top 64px) stayed transparent when scrollY=0 so the 3D network chips bled through the top edge of the open menu. Fixed in src/components/Header.jsx by (1) forcing header to solid bg-weha-bg when mobile menu is open and (2) adding explicit z-40 to the mobile menu panel for cross-browser stacking stability. Please verify on mobile viewport (e.g. 390x844): opening the mobile menu must show a fully opaque background — light cream (#f7f6f2) in light mode, dark (#171614) in dark mode — with NO 3D network chips/text visible through the menu area (including the top header bar). Also confirm tapping a nav link closes the menu and navigates. Toggle theme button and 'Book a Free Audit' CTA inside the menu should still work."
 
 frontend:
+  - task: "Section background readability (PAIN + METRICS sections)"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/Home.jsx, frontend/src/index.css"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "After the 3D scroll-parallax was added, two homepage sections ('Sound familiar?' aka PAIN, and the metrics strip) had transparent backgrounds — text was hard to read against the animated 3D network scene behind."
+        - working: "NA"
+          agent: "main"
+          comment: "Added new .section-glass utility in index.css that paints an absolute pseudo-element with var(--weha-bg) at 92% opacity (or 78% + 14px backdrop-blur where supported), keeping a faint hint of the network behind for visual continuity while making body text fully legible. Applied .section-glass to the PAIN section (line 144) and the METRICS section (line 249). Both still wrapped by ScrollSection so the 3D effect still applies. Needs verification: text inside 'Sound familiar?' and the metrics row is now legible on light AND dark themes, and the network chips are no longer competing with the text for attention."
+        - working: true
+          agent: "testing"
+          comment: "✅ VERIFIED ALL REQUIREMENTS (12/12 tests passed). LIGHT MODE (1920x900): PAIN section ('Sound familiar?') - ::before pseudo-element has rgb(247,246,242) background at 0.78 opacity with blur(14px) backdrop-filter active. Text clearly readable, network scene subtly visible behind. METRICS section - same treatment: rgb(247,246,242) at 0.78 opacity with blur(14px). Both sections pass readability test. DARK MODE: PAIN section - ::before has rgb(23,22,20) dark background at 0.78 opacity. Text clearly readable against dark backdrop. METRICS section - visible and readable in dark mode. REGRESSION TESTS: (1) Exactly 6 scroll-section elements found (parallax intact), (2) No horizontal scrollbar (scrollWidth=1920, clientWidth=1920), (3) Parallax transform active (matrix3d with x=18px offset and rotateY detected at scroll position 1500), (4) Zero console errors. Screenshots confirm text legibility in both themes while maintaining subtle visual continuity with 3D network scene. Fix working perfectly as designed."
+
   - task: "3D scroll-parallax sections on Home page (test only — not sitewide)"
     implemented: true
     working: true
@@ -262,3 +280,5 @@ agent_communication:
       message: "✅ WEHA WEBSITE VERIFICATION COMPLETE - ALL TESTS PASSED. Verified two changes: (A) Booking modal calendar/slot layout fix - PASS on both desktop (1920x900) and mobile (390x844). Desktop: Modal 1120px wide, calendar 302px (within spec), NO overlap (29px gap between calendar and slots), all 7 weekday headers visible, timezone switching works. Mobile: Info panel hidden, vertical stacking correct, no overflow, opaque background. (B) Integration logo ticker - PASS. Strip visible with 'FLUENT IN YOUR STACK' header, all 9 required logos present (xero, n8n, hubspot, whatsapp, anthropic, make, airtable, openai, zapier), marquee animates smoothly (119px/2s), pauses on hover. Both features fully functional. Screenshots saved for record."
     - agent: "testing"
       message: "✅ 3D SCROLL-PARALLAX EFFECT FULLY VERIFIED (11/11 tests passed). Desktop tests (1920x900): No console errors, exactly 6 scroll-section elements with correct alternating pattern [left, right, left, right, left, right], no horizontal scrollbar, transform animations working (matrix3d values change during scroll), screenshots captured at 5 scroll positions showing progressive effect, reverse animation confirmed. Cross-page tests: All other pages (/services, /work, /about, /contact) have zero scroll-section elements (homepage-only confirmed), all render correctly. Functional tests: Hero CTA opens modal over animated sections, modal remains stable while scrolling. Accessibility: With prefers-reduced-motion, ScrollSection renders as plain div, content still renders. Mid-scroll verification shows correct 3D effect with alternating x offsets and rotateY values. All parallax effects working as designed. No issues found."
+    - agent: "testing"
+      message: "✅ SECTION GLASS READABILITY FIX VERIFIED (12/12 tests passed). Comprehensive testing of .section-glass utility on PAIN and METRICS sections. LIGHT MODE (1920x900): Both sections have ::before pseudo-element with rgb(247,246,242) background at 0.78 opacity + blur(14px) backdrop-filter. Text ('Sound familiar?' heading and metrics) clearly readable with subtle network scene visible behind. DARK MODE: Both sections have rgb(23,22,20) dark background at 0.78 opacity. Text clearly readable in both themes. REGRESSION: (1) 6 scroll-section elements intact, (2) No horizontal scrollbar, (3) Parallax transform active (matrix3d with x=18px, rotateY detected), (4) Zero console errors. Screenshots confirm perfect readability while maintaining visual continuity with 3D network. Fix working as designed."
