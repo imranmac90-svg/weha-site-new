@@ -3,32 +3,7 @@ import { Download, BookOpen, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { submitPlaybookLead, PLAYBOOK_DOWNLOAD_URL } from "@/lib/api";
 
-const INDUSTRIES = [
-  "Real Estate",
-  "Freight & Logistics",
-  "Accounting & Bookkeeping",
-  "Mortgage & Finance",
-  "Events & Exhibitions",
-  "Fintech",
-  "SaaS",
-  "Healthcare",
-  "Manufacturing",
-  "Retail & E-commerce",
-  "Education",
-  "Hospitality",
-  "Construction",
-  "Marketing Agency",
-  "Professional Services",
-  "Other",
-];
-
-const COUNTRIES = [
-  "United Arab Emirates", "Australia", "Singapore", "India",
-  "United States", "United Kingdom", "Canada", "New Zealand",
-  "Saudi Arabia", "Qatar", "Other",
-];
-
-const SESSION_OPTIONS = ["Yes — book me in", "Maybe later", "No, just the playbook"];
+const SESSION_OPTIONS = ["Yes, book me in", "Maybe later", "No, just the playbook"];
 
 const initial = {
   name: "",
@@ -62,7 +37,7 @@ export default function PlaybookLeadForm({
     try {
       await submitPlaybookLead({ ...form, source });
       setDone(true);
-      toast.success("Playbook unlocked — download starting.");
+      toast.success("Playbook unlocked. Download starting.");
       // Open the placeholder download in a new tab
       window.open(PLAYBOOK_DOWNLOAD_URL, "_blank", "noopener,noreferrer");
     } catch (err) {
@@ -108,7 +83,7 @@ export default function PlaybookLeadForm({
             </span>
             <h3 className="weha-display text-2xl md:text-3xl mt-2 text-weha-text leading-tight">{heading}</h3>
             <p className="mt-2 text-sm text-weha-muted leading-relaxed">
-              The same diagnostic we use with paying clients — playbooks, scorecards and 12 reference workflows.
+              The same diagnostic we use with paying clients. Playbooks, scorecards and 12 reference workflows.
             </p>
           </div>
 
@@ -157,25 +132,21 @@ export default function PlaybookLeadForm({
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
               <label className="weha-label" htmlFor={`${testid}-industry`}>Industry</label>
-              <select
+              <input
                 id={`${testid}-industry`} className="weha-input"
                 value={form.industry} onChange={update("industry")}
+                placeholder="What your business does"
                 data-testid={`${testid}-industry`}
-              >
-                <option value="">Select industry</option>
-                {INDUSTRIES.map((i) => <option key={i}>{i}</option>)}
-              </select>
+              />
             </div>
             <div>
               <label className="weha-label" htmlFor={`${testid}-country`}>Country</label>
-              <select
+              <input
                 id={`${testid}-country`} className="weha-input"
                 value={form.country} onChange={update("country")}
+                placeholder="Where you're based"
                 data-testid={`${testid}-country`}
-              >
-                <option value="">Select country</option>
-                {COUNTRIES.map((c) => <option key={c}>{c}</option>)}
-              </select>
+              />
             </div>
           </div>
 
@@ -203,7 +174,7 @@ export default function PlaybookLeadForm({
             {submitting ? "Preparing your copy…" : "Download Playbook"} <Download size={16} />
           </button>
           <p className="text-xs text-weha-faint leading-relaxed">
-            We&apos;ll never spam. Unsubscribe in one click. Your data stays in our compliance-grade stack.
+            We&apos;ll never spam. Unsubscribe in one click. Your data stays private and is never shared.
           </p>
         </form>
       )}

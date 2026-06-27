@@ -6,18 +6,12 @@ import { Calendar } from "@/components/ui/calendar";
 import { fetchAvailability, submitBookingRequest } from "@/lib/api";
 
 const TIMEZONES = [
-  { label: "🇦🇪 UAE — GST",          value: "Asia/Dubai" },
-  { label: "🇦🇺 Australia — AEST",   value: "Australia/Sydney" },
-  { label: "🇸🇬 Singapore — SGT",    value: "Asia/Singapore" },
-  { label: "🇮🇳 India — IST",        value: "Asia/Kolkata" },
-  { label: "🇺🇸 United States — ET", value: "America/New_York" },
+  { label: "🇦🇪 UAE · GST",          value: "Asia/Dubai" },
+  { label: "🇦🇺 Australia · AEST",   value: "Australia/Sydney" },
+  { label: "🇸🇬 Singapore · SGT",    value: "Asia/Singapore" },
+  { label: "🇮🇳 India · IST",        value: "Asia/Kolkata" },
+  { label: "🇺🇸 United States · ET", value: "America/New_York" },
 ];
-
-const INDUSTRIES = [
-  "Real Estate", "Freight Forwarding", "Accounting",
-  "Mortgage & Finance", "Events & Exhibitions", "Fintech", "Other",
-];
-const COUNTRIES = ["UAE", "Australia", "Singapore", "India", "United States", "Other"];
 
 // Detect user's tz from browser and map to one of our supported zones
 function guessDefaultTz() {
@@ -47,7 +41,7 @@ const horizon = new Date(today);
 horizon.setDate(horizon.getDate() + 28);
 
 const initialForm = {
-  name: "", company: "", country: "UAE", industry: "Real Estate",
+  name: "", company: "", country: "", industry: "",
   process: "", contact_method: "WhatsApp", email: "",
 };
 
@@ -90,7 +84,7 @@ export default function BookingModal({ open, onOpenChange }) {
   const slotDisplay = useMemo(() => {
     if (!selectedSlot || !date) return "";
     const d = date.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
-    return `${d} · ${selectedSlot.label} (${tzLabel.split("—")[1]?.trim() || tz})`;
+    return `${d} · ${selectedSlot.label} (${tzLabel.split("·")[1]?.trim() || tz})`;
   }, [selectedSlot, date, tz, tzLabel]);
 
   const updateForm = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
@@ -144,7 +138,7 @@ export default function BookingModal({ open, onOpenChange }) {
             )}
             <p className="mt-3 text-weha-muted max-w-md mx-auto leading-relaxed">
               A confirmation will arrive within 24 hours via your preferred contact method.
-              No sales scripts — just a focused 60-minute working session.
+              No sales scripts, just a focused 60-minute working session.
             </p>
             <button
               onClick={() => onOpenChange(false)}
@@ -156,7 +150,7 @@ export default function BookingModal({ open, onOpenChange }) {
           </div>
         ) : (
           <div className="grid md:grid-cols-[320px_1fr]">
-            {/* LEFT — context column */}
+            {/* LEFT - context column */}
             <aside className="hidden md:flex flex-col justify-between p-7 lg:p-8 bg-weha-surface border-r border-weha-border">
               <div>
                 <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">
@@ -183,7 +177,7 @@ export default function BookingModal({ open, onOpenChange }) {
               </div>
             </aside>
 
-            {/* RIGHT — interactive column */}
+            {/* RIGHT - interactive column */}
             <div className="p-6 md:p-7 lg:p-9">
               {/* Step indicator */}
               <div className="flex items-center gap-2 mb-5">
@@ -343,17 +337,13 @@ export default function BookingModal({ open, onOpenChange }) {
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
                       <label className="weha-label" htmlFor="bk-country">Country</label>
-                      <select id="bk-country" className="weha-input"
-                        value={form.country} onChange={updateForm("country")} data-testid="booking-country">
-                        {COUNTRIES.map(c => <option key={c}>{c}</option>)}
-                      </select>
+                      <input id="bk-country" className="weha-input" placeholder="Where you're based"
+                        value={form.country} onChange={updateForm("country")} data-testid="booking-country" />
                     </div>
                     <div>
                       <label className="weha-label" htmlFor="bk-industry">Industry</label>
-                      <select id="bk-industry" className="weha-input"
-                        value={form.industry} onChange={updateForm("industry")} data-testid="booking-industry">
-                        {INDUSTRIES.map(i => <option key={i}>{i}</option>)}
-                      </select>
+                      <input id="bk-industry" className="weha-input" placeholder="What your business does"
+                        value={form.industry} onChange={updateForm("industry")} data-testid="booking-industry" />
                     </div>
                   </div>
                   <div>
@@ -364,7 +354,7 @@ export default function BookingModal({ open, onOpenChange }) {
                   <div>
                     <label className="weha-label" htmlFor="bk-process">The manual process you want to fix</label>
                     <textarea id="bk-process" rows={3} className="weha-input resize-none"
-                      placeholder="e.g. We copy Bayut leads into a spreadsheet every morning…"
+                      placeholder="e.g. We copy new leads into a spreadsheet every morning…"
                       value={form.process} onChange={updateForm("process")} data-testid="booking-process" />
                   </div>
                   <div>

@@ -4,11 +4,11 @@
 
 const SITE_URL = (process.env.REACT_APP_SITE_URL || "https://www.wehelpautomate.com").replace(/\/$/, "");
 const DEFAULT_IMG = `${SITE_URL}/og-default.png`;
-const DEFAULT_TITLE = "WeHA — We Help Automate | Compliance-grade AI automation";
+const DEFAULT_TITLE = "WeHA | We Help Automate · AI automation that runs itself";
 
 export default function Seo({
   title,
-  description = "We Help Automate (WeHA) builds compliance-grade AI automation for SMBs in real estate, freight, accounting and finance across the UAE, Australia and Singapore.",
+  description = "We Help Automate (WeHA) turns your messiest manual workflows into AI systems that run themselves. Built in days, not months.",
   path = "/",
   image,
   type = "website",
