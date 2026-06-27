@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, MousePointer2 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -44,6 +45,31 @@ const metrics = [
 
 export default function Home() {
   const { openBooking } = useBooking();
+
+  const rotatingWords = [
+    "your manual tasks",
+    "your workflows",
+    "your follow-ups",
+    "your reporting",
+    "your onboarding",
+    "your invoicing",
+    "your lead routing",
+    "your stress",
+  ];
+  const [wordIndex, setWordIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setWordIndex((i) => (i + 1) % rotatingWords.length);
+        setVisible(true);
+      }, 350);
+    }, 2200);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div data-testid="home-page">
       {/* HERO — over the live floating tech network */}
@@ -58,23 +84,31 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-5 sm:px-8 w-full pt-24 pb-32">
           <div className="max-w-3xl">
             <Reveal>
-              <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">
-                <span className="h-1.5 w-1.5 rounded-full bg-weha-teal animate-pulse" />
-                We Help Automate · UAE · AU · SG
+              <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase">
+                <span className="h-1.5 w-1.5 rounded-full bg-weha-teal animate-pulse flex-shrink-0" />
+                <span className="text-weha-teal">We Help Automate</span>
+                <span
+                  className="text-weha-muted normal-case tracking-normal font-medium transition-all duration-300"
+                  style={{
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? "translateY(0px)" : "translateY(6px)",
+                  }}
+                >
+                  {rotatingWords[wordIndex]}
+                </span>
               </span>
             </Reveal>
             <h1 className="weha-display text-5xl sm:text-7xl lg:text-[5.5rem] mt-6 text-weha-text leading-[1.02]">
               <MaskReveal delay={0.05}>Your business runs</MaskReveal>
               <MaskReveal delay={0.13}>on 47 manual steps.</MaskReveal>
               <MaskReveal delay={0.21}>
-                <span className="italic text-weha-teal">Let's fix that.</span>
+                <span className="italic text-weha-teal">Let's automate that.</span>
               </MaskReveal>
             </h1>
             <Reveal delay={0.35}>
               <p className="mt-7 text-lg md:text-xl text-weha-muted max-w-xl leading-relaxed">
-                We build automation systems for SMBs in real estate, freight, accounting and
-                finance — backed by enterprise security standards, so you never have to worry
-                about compliance.
+                We turn your messiest, most time-consuming workflows into systems that run
+                themselves. Built in days, not months.
               </p>
             </Reveal>
             <Reveal delay={0.45}>
