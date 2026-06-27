@@ -91,12 +91,13 @@ export default function Work() {
         title="What automation looks like in the"
         italicWord="real world."
         subtitle="These are the workflows we've solved and are solving now. Every example is based on a real operational pain in that vertical — not a hypothetical."
-        formHeading="Your workflow could be next"
+        formHeading="Get the AI Transformation Playbook"
         formTestid="work-lead-form"
+        formSource="work"
       />
 
       <ScrollSection direction="left">
-      <section className="relative section-solid py-12 md:py-16">
+      <section className="section-glass relative section-solid py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-10">
           {snapshots.map((s, i) => (
             <Reveal key={s.title} delay={(i % 2) * 0.06}>
@@ -143,7 +144,7 @@ export default function Work() {
       </ScrollSection>
 
       <ScrollSection direction="right">
-      <section className="py-16 md:py-20 bg-weha-surface border-y border-weha-border">
+      <section className="section-glass py-16 md:py-20 bg-weha-surface border-y border-weha-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
             <p className="text-xs font-semibold tracking-widest uppercase text-weha-teal">Currently building for</p>

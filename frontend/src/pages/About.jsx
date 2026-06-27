@@ -25,13 +25,14 @@ export default function About() {
       <PageHero
         title="Built by someone who spent a decade keeping systems secure — and a lot of time watching founders"
         italicWord="lose theirs to manual work."
-        formHeading="Talk to WeHA"
+        formHeading="Get the AI Transformation Playbook"
         formTestid="about-lead-form"
+        formSource="about"
       />
 
       {/* Founder story */}
       <ScrollSection direction="left">
-      <section className="relative section-solid py-12 md:py-20">
+      <section className="section-glass relative section-solid py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 items-start">
           <Reveal>
             <div className="rounded-2xl overflow-hidden border border-weha-border bg-weha-surface">
@@ -73,7 +74,7 @@ export default function About() {
 
       {/* Why security thinking matters */}
       <ScrollSection direction="right">
-      <section className="py-20 md:py-28 bg-weha-surface border-y border-weha-border">
+      <section className="section-glass py-20 md:py-28 bg-weha-surface border-y border-weha-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
             <h2 className="weha-display text-4xl md:text-5xl text-weha-text max-w-3xl">
@@ -99,7 +100,7 @@ export default function About() {
 
       {/* Director + markets */}
       <ScrollSection direction="left">
-      <section className="relative section-solid py-20 md:py-28">
+      <section className="section-glass relative section-solid py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid gap-14 md:grid-cols-2 md:gap-16">
           <Reveal>
             <div>
@@ -129,7 +130,7 @@ export default function About() {
 
       {/* Values */}
       <ScrollSection direction="right">
-      <section className="py-20 md:py-28 bg-weha-surface border-y border-weha-border">
+      <section className="section-glass py-20 md:py-28 bg-weha-surface border-y border-weha-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
             <h2 className="weha-display text-4xl md:text-5xl text-weha-text">What we believe.</h2>

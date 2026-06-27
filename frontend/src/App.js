@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import NetworkScene from "@/three/NetworkScene";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
 import Work from "@/pages/Work";
@@ -46,6 +47,7 @@ function App() {
             </main>
             <Footer />
           </div>
+          <FloatingWhatsApp />
           <Toaster position="bottom-right" />
         </BrowserRouter>
       </BookingProvider>

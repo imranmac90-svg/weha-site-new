@@ -1,5 +1,5 @@
 import Reveal from "@/components/Reveal";
-import LeadForm from "@/components/LeadForm";
+import PlaybookLeadForm from "@/components/PlaybookLeadForm";
 
 export default function PageHero({
   kicker,
@@ -9,6 +9,7 @@ export default function PageHero({
   showForm = true,
   formHeading,
   formTestid = "hero-lead-form",
+  formSource = "page-hero",
 }) {
   return (
     <section className="relative pt-32 md:pt-40 pb-16 md:pb-24 min-h-[72vh] flex items-center overflow-hidden">
@@ -45,7 +46,11 @@ export default function PageHero({
 
         {showForm && (
           <Reveal delay={0.2}>
-            <LeadForm heading={formHeading} testid={formTestid} />
+            <PlaybookLeadForm
+              heading={formHeading || "Get the AI Transformation Playbook"}
+              testid={formTestid}
+              source={formSource}
+            />
           </Reveal>
         )}
       </div>

@@ -87,6 +87,32 @@ class Slot(BaseModel):
     taken: bool
 
 
+class PlaybookLeadCreate(BaseModel):
+    name: str
+    company: str
+    designation: Optional[str] = None
+    email: EmailStr
+    industry: Optional[str] = None
+    country: Optional[str] = None
+    session_interest: Optional[str] = None  # "Yes" | "Maybe" | "No"
+    source: Optional[str] = None             # which page submitted
+
+
+class PlaybookLead(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    company: str
+    designation: Optional[str] = None
+    email: str
+    industry: Optional[str] = None
+    country: Optional[str] = None
+    session_interest: Optional[str] = None
+    source: Optional[str] = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
 @api_router.get("/")
 async def root():
     return {"message": "WeHA API"}
@@ -188,6 +214,27 @@ async def get_audit_requests():
     items = await db.audit_requests.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
     for it in items:
         if isinstance(it['created_at'], str):
+            it['created_at'] = datetime.fromisoformat(it['created_at'])
+    return items
+
+
+# --- Playbook lead capture (AI Transformation Playbook download form) ---------
+@api_router.post("/playbook-requests", response_model=PlaybookLead)
+async def create_playbook_request(input: PlaybookLeadCreate):
+    if not input.name.strip() or not input.company.strip():
+        raise HTTPException(status_code=422, detail="Name and company are required.")
+    obj = PlaybookLead(**input.model_dump())
+    doc = obj.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    await db.playbook_requests.insert_one(doc)
+    return obj
+
+
+@api_router.get("/playbook-requests", response_model=List[PlaybookLead])
+async def get_playbook_requests():
+    items = await db.playbook_requests.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    for it in items:
+        if isinstance(it.get('created_at'), str):
             it['created_at'] = datetime.fromisoformat(it['created_at'])
     return items
 

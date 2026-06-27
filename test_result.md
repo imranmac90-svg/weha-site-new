@@ -149,6 +149,18 @@ backend:
           agent: "testing"
           comment: "✅ VERIFIED: Audit request API fully functional. POST /api/audit-requests with valid data returns 200 with all fields (id, name, company, country, industry, process, contact_method, email, created_at). Validation working correctly: empty name returns 422, empty process returns 422. GET /api/audit-requests returns list sorted by created_at desc. Data persists correctly to MongoDB. All 7/7 tests passed."
 
+  - task: "Playbook lead capture endpoints (POST/GET /api/playbook-requests)"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ VERIFIED ALL 12 TEST CASES PASSED. NEW ENDPOINTS: (1) POST /api/playbook-requests with ALL fields (name, company, designation, email, industry, country, session_interest, source) → 200 with id, created_at ISO Z, all fields persisted. (2) POST with only required fields (name, company, email) → 200, optional fields default to null. (3) Empty name (whitespace) → 422 with 'Name and company are required.' (4) Empty company (whitespace) → 422. (5) Invalid email format ('notanemail') → 422 with pydantic EmailStr validation error. (6) Missing email field → 422. (7) GET /api/playbook-requests returns list sorted by created_at desc, includes created records. (8) GET /api/audit-requests still works (no interference), returns 3 audit records. (9) Data correctly stored in separate db.playbook_requests collection. REGRESSION: (10) GET /api/ returns {message: WeHA API}. (11) GET /api/availability?date=next-tuesday&tz=Asia/Dubai works, returns 18 slots. (12) POST /api/audit-requests with valid payload works, existing booking flow intact. All endpoints functional, no interference between collections."
+
 frontend:
   - task: "Restore frontend/.env (REACT_APP_BACKEND_URL)"
     implemented: true
@@ -165,7 +177,7 @@ frontend:
 metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 3
+  test_sequence: 4
   run_ui: false
 
 test_plan:
@@ -299,3 +311,5 @@ agent_communication:
       message: "✅ SECTION GLASS READABILITY FIX VERIFIED (12/12 tests passed). Comprehensive testing of .section-glass utility on PAIN and METRICS sections. LIGHT MODE (1920x900): Both sections have ::before pseudo-element with rgb(247,246,242) background at 0.78 opacity + blur(14px) backdrop-filter. Text ('Sound familiar?' heading and metrics) clearly readable with subtle network scene visible behind. DARK MODE: Both sections have rgb(23,22,20) dark background at 0.78 opacity. Text clearly readable in both themes. REGRESSION: (1) 6 scroll-section elements intact, (2) No horizontal scrollbar, (3) Parallax transform active (matrix3d with x=18px, rotateY detected), (4) Zero console errors. Screenshots confirm perfect readability while maintaining visual continuity with 3D network. Fix working as designed."
     - agent: "testing"
       message: "✅ 3D SCROLL-PARALLAX SITEWIDE ROLLOUT VERIFIED (24/24 tests passed). Tested all 4 non-home pages at desktop viewport (1920x900). SERVICES: 3 sections with [left, right, left] pattern, no horizontal scrollbar, parallax active, CTA visible. WORK: 3 sections with [left, right, left] pattern, no horizontal scrollbar, parallax active, CTA visible. ABOUT: 5 sections with [left, right, left, right, left] pattern, no horizontal scrollbar, parallax active, CTA visible. CONTACT: 3 sections with [left, right, left] pattern, no horizontal scrollbar, parallax active, form input typeable ('Sarah Johnson' entered successfully), section-glass backdrop present (opacity 0.78, blur 14px, bg rgb(247,246,242)). ACCESSIBILITY: prefers-reduced-motion test on /work shows ScrollSection correctly degrades to plain div (0 scroll-section elements), content fully accessible. Screenshots saved for all pages. Sitewide rollout complete and working perfectly."
+    - agent: "testing"
+      message: "✅ PLAYBOOK LEAD CAPTURE ENDPOINTS FULLY VERIFIED (12/12 tests passed). Created /app/backend_test_playbook.py and comprehensively tested new endpoints. POST /api/playbook-requests: (1) All fields submission works (name, company, designation, email, industry, country, session_interest, source) with 200 response, id + created_at ISO Z format. (2) Required-only fields (name, company, email) works, optional fields null. (3-4) Empty name/company validation returns 422 with correct error message. (5) Invalid email format rejected by pydantic EmailStr with 422. (6) Missing email field returns 422. GET /api/playbook-requests: (7) Returns list sorted by created_at desc with created records present. (8) No interference - GET /api/audit-requests still returns audit records (3 found). (9) Data stored in separate db.playbook_requests collection. REGRESSION TESTS: (10) GET /api/ returns {message: WeHA API}. (11) GET /api/availability works with next Tuesday + Asia/Dubai, returns 18 slots. (12) POST /api/audit-requests with valid payload works, booking flow intact. All endpoints functional, collections properly separated."

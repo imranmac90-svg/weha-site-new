@@ -170,7 +170,7 @@ export default function Home() {
 
       {/* HOW IT WORKS */}
       <ScrollSection direction="right">
-      <section className="relative section-surface border-y border-weha-border py-24 md:py-32">
+      <section className="section-glass relative section-surface border-y border-weha-border py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
             <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">How it works</span>
@@ -193,7 +193,7 @@ export default function Home() {
 
       {/* DIFFERENCE — dark security moment */}
       <ScrollSection direction="left">
-      <section className="relative py-28 md:py-40 overflow-hidden" style={{ background: "#171614" }}>
+      <section className="section-glass relative py-28 md:py-40 overflow-hidden" style={{ background: "#171614" }}>
         <div
           className="absolute inset-0 opacity-[0.55]"
           style={{ background: "radial-gradient(circle at 75% 50%, rgba(155,128,224,0.30), transparent 55%)" }}
@@ -221,7 +221,7 @@ export default function Home() {
 
       {/* VERTICALS */}
       <ScrollSection direction="right">
-      <section className="relative section-surface border-b border-weha-border py-24 md:py-32">
+      <section className="section-glass relative section-surface border-b border-weha-border py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
             <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">Verticals we know cold</span>
@@ -262,7 +262,7 @@ export default function Home() {
 
       {/* CTA BANNER */}
       <ScrollSection direction="right">
-      <section className="section-solid px-5 sm:px-8 pb-24">
+      <section className="section-glass section-solid px-5 sm:px-8 pb-24">
         <div className="max-w-7xl mx-auto rounded-3xl px-8 py-16 md:px-16 md:py-24 relative overflow-hidden" style={{ background: "var(--weha-teal)" }}>
           <Reveal>
             <h2 className="weha-display text-4xl md:text-6xl text-white max-w-3xl leading-[1.05]">

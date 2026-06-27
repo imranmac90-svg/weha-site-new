@@ -51,12 +51,13 @@ export default function Services() {
         title="Three things we build. One outcome:"
         italicWord="your time back."
         subtitle="We don't sell vague 'AI transformation.' We build specific, scoped systems that solve one workflow at a time."
-        formHeading="Find your first automation"
+        formHeading="Get the AI Transformation Playbook"
         formTestid="services-lead-form"
+        formSource="services"
       />
 
       <ScrollSection direction="left">
-      <section className="relative section-solid py-12 md:py-16">
+      <section className="section-glass relative section-solid py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-8">
           {services.map((s, i) => (
             <Reveal key={s.n} delay={(i % 2) * 0.08}>
@@ -93,7 +94,7 @@ export default function Services() {
       </ScrollSection>
 
       <ScrollSection direction="right">
-      <section className="py-20 md:py-28 bg-weha-surface border-y border-weha-border">
+      <section className="section-glass py-20 md:py-28 bg-weha-surface border-y border-weha-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
             <h2 className="weha-display text-4xl md:text-5xl text-weha-text">How WeHA scopes projects.</h2>
