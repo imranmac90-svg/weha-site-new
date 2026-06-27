@@ -28,8 +28,8 @@ export default function FloatingWhatsApp() {
         {/* Pulse halo */}
         <span
           aria-hidden="true"
-          className="absolute inset-0 rounded-full opacity-60 animate-ping"
-          style={{ backgroundColor: "var(--weha-teal)", animationDuration: "2.4s" }}
+          className="weha-whatsapp-pulse absolute inset-0 rounded-full"
+          style={{ backgroundColor: "var(--weha-teal)" }}
         />
         {/* WhatsApp icon (currentColor → white) */}
         <svg
