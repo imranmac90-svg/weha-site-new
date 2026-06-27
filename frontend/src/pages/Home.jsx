@@ -88,7 +88,7 @@ export default function Home() {
                 <span className="h-1.5 w-1.5 rounded-full bg-weha-teal animate-pulse flex-shrink-0" />
                 <span className="text-weha-teal">We Help Automate</span>
                 <span
-                  className="text-weha-muted normal-case tracking-normal font-medium transition-all duration-300"
+                  className="text-weha-muted normal-case tracking-normal italic font-semibold transition-all duration-300"
                   style={{
                     opacity: visible ? 1 : 0,
                     transform: visible ? "translateY(0px)" : "translateY(6px)",
