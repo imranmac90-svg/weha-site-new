@@ -188,6 +188,9 @@ frontend:
         - working: "NA"
           agent: "main"
           comment: "Root cause: section had .section-glass whose ::before overlays var(--weha-bg) (cream #f7f6f2 in light mode) at 70-82% opacity over the intended dark #171614 background, washing it to light grey. Fix: locally override CSS vars on this section via inline style {'--weha-bg':'#171614','--weha-text':'#f7f6f2'} so the glass overlay tints DARK instead of cream. Section is now properly dark with readable white/light text in both light and dark themes."
+        - working: true
+          agent: "testing"
+          comment: "✅ VERIFIED across all viewports (mobile 390x844, 360x800; tablet 768x1024, 1024x768) in both light and dark themes. DIFFERENCE section background is dark rgb(23,22,20), light heading + bullet text clearly readable with strong contrast, two-column grid stacks vertically on mobile. No horizontal overflow anywhere."
 
 
   - task: "Full mobile and tablet responsive testing sitewide"
