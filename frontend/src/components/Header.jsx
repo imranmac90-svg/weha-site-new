@@ -10,7 +10,9 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/work", label: "Work" },
+  { to: "/resources", label: "Resources" },
   { to: "/about", label: "About" },
+  { to: "/weha-ai", label: "WeHA AI" },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -48,13 +50,13 @@ export default function Header() {
           <Logo animated />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-5 lg:gap-7">
           {links.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
               end={l.to === "/"}
-              data-testid={`nav-${l.label.toLowerCase()}`}
+              data-testid={`nav-${l.label.toLowerCase().replace(/\s+/g, "-")}`}
               className={({ isActive }) =>
                 `relative text-sm font-medium transition-colors duration-200 hover:text-weha-teal ${
                   isActive ? "text-weha-teal" : "text-weha-text"
@@ -114,7 +116,7 @@ export default function Header() {
               to={l.to}
               end={l.to === "/"}
               onClick={() => setOpen(false)}
-              data-testid={`mobile-nav-${l.label.toLowerCase()}`}
+              data-testid={`mobile-nav-${l.label.toLowerCase().replace(/\s+/g, "-")}`}
               className={({ isActive }) =>
                 `weha-display text-5xl py-3 border-b border-weha-border ${
                   isActive ? "text-weha-teal" : "text-weha-text"

@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
+import Seo from "@/components/Seo";
 import { submitAuditRequest } from "@/lib/api";
 import {
   Accordion,
@@ -77,6 +78,11 @@ export default function Contact() {
 
   return (
     <div data-testid="contact-page" className="overflow-x-hidden">
+      <Seo
+        title="Contact — book a free 60-minute AI Audit"
+        description="Book a free 60-minute AI Audit with WeHA. We'll map your top 3 manual workflows and show you what one automation would look like — live, for your business."
+        path="/contact"
+      />
       <PageHero
         kicker="Contact"
         title="Let's find your"

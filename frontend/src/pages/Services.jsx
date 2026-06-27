@@ -3,6 +3,7 @@ import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
 import IntegrationStrip from "@/components/IntegrationStrip";
+import Seo from "@/components/Seo";
 
 const services = [
   {
@@ -47,6 +48,11 @@ const scoping = [
 export default function Services() {
   return (
     <div data-testid="services-page" className="overflow-x-hidden">
+      <Seo
+        title="Services — AI automation built one workflow at a time"
+        description="WeHA builds specific, scoped automation systems: lead capture & qualification, workflow & document automation, and custom AI — solving one workflow at a time."
+        path="/services"
+      />
       <PageHero
         kicker="Services"
         title="Three things we build. One outcome:"

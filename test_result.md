@@ -247,8 +247,24 @@ frontend:
 metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 6
+  test_sequence: 7
   run_ui: false
+
+backend:
+  - task: "WeHA AI chat endpoints (OpenRouter, placeholder/demo mode)"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added GET /api/weha-ai/models (returns 5 placeholder OpenRouter models + default openai/gpt-4o-mini) and POST /api/weha-ai/chat (body: session_id, messages[{role,content}], optional model). OpenRouter wired via httpx with PLACEHOLDER OPENROUTER_API_KEY (blank in .env) → returns graceful demo reply with mocked:true. Persists to db.weha_ai_sessions. Verify: (a) GET /models returns 5 models+default, (b) POST /chat valid body returns {reply, model, mocked:true}, (c) empty messages → 422, (d) invalid model falls back to default openai/gpt-4o-mini, (e) regression: existing endpoints (/api/, /api/audit-requests, /api/availability, /api/playbook-requests) still work."
+        - working: true
+          agent: "testing"
+          comment: "✅ VERIFIED ALL 9 TESTS PASSED. Created /app/backend_test_weha_ai.py and comprehensively tested new WeHA AI endpoints + regression. NEW ENDPOINTS: (1) GET /api/weha-ai/models returns 200 with correct structure: 5 models [openai/gpt-4o-mini, openai/gpt-4o, anthropic/claude-3.5-sonnet, google/gemini-flash-1.5, meta-llama/llama-3.1-70b-instruct] and default='openai/gpt-4o-mini'. (2) POST /api/weha-ai/chat with valid body (session_id, messages, model) returns 200 with {reply: <non-empty string>, model: 'openai/gpt-4o-mini', mocked: true}. Demo mode confirmed - OPENROUTER_API_KEY is blank so mocked=true as expected. (3) POST /api/weha-ai/chat with empty messages array correctly returns 422 with error detail 'messages cannot be empty'. (4) POST /api/weha-ai/chat with invalid/unknown model 'some/nonexistent-model' returns 200 and correctly falls back to default model 'openai/gpt-4o-mini'. (5) Multi-turn conversation: Two consecutive POST requests with same session_id and message history both return 200 with valid replies. REGRESSION TESTS: (6) GET /api/ returns 200 with {message: 'WeHA API'}. (7) POST /api/audit-requests with valid payload (name, company, country, industry, process, contact_method, email) returns 200 with id and created_at. (8) GET /api/availability?date=2026-06-29&tz=Asia/Dubai returns 200 with 18 slots (09:00-17:30) with correct structure (label, iso_utc, taken). (9) POST /api/playbook-requests with valid payload (name, company, email) returns 200 with id and created_at. All endpoints functional. WeHA AI chat working in demo/MOCKED mode (OPENROUTER_API_KEY intentionally blank). No issues found."
 
 frontend:
   - task: "Motion/parallax overhaul (Phase 1 + 2) - Home page + sitewide"
@@ -403,3 +419,5 @@ agent_communication:
       message: "✅ COMPREHENSIVE RESPONSIVE TESTING COMPLETE - ALL CRITICAL TESTS PASSED. Performed exhaustive testing across all 5 pages (Home, Services, Work, About, Contact) at 4 viewports (Mobile iPhone 390x844, Mobile Android 360x800, Tablet Portrait 768x1024, Tablet Landscape 1024x768) in both light and dark themes. KEY FINDINGS: (1) HORIZONTAL OVERFLOW: ✅ ZERO overflow on any page at any viewport - all pages pass scrollWidth === clientWidth test. (2) DIFFERENCE SECTION: ✅ Dark background (rgb(23,22,20)) confirmed in both themes, light text readable. (3) MOBILE MENU: ✅ Fully opaque background in both light (cream) and dark (dark) modes, NO 3D network bleed-through, navigation functional. (4) BOOKING MODAL: ✅ Fits mobile viewport (370.5px < 390px), opaque background, no overflow. (5) CONTACT FORM: ✅ All inputs typeable and functional on mobile. (6) INTEGRATION STRIP: ✅ Renders correctly, no overflow. (7) THEME TOGGLE: ✅ Works perfectly both directions. (8) CONSOLE ERRORS: ✅ ZERO errors, only 3 minor THREE.js deprecation warnings (non-critical). TOTAL: 30+ tests, ALL PASSED. Screenshots saved. Website is production-ready for responsive devices."
     - agent: "testing"
       message: "✅ MOTION/PARALLAX OVERHAUL FULLY VERIFIED - ALL 11 TESTS PASSED AT DESKTOP 1920x900. HOME PAGE: (1) NO critical console errors, (2) NO horizontal overflow at any scroll position (0-6000px tested), (3) Scroll progress bar pinned to top with scaleX 0→1 growth, (4) Exactly 6 scroll-sections with alternating [left,right,left,right,left,right] pattern, (5) ONE-WAY SETTLE confirmed (sections stay at x=0px, opacity=1.0 when scrolled past - NO drift), (6) Hero parallax-out works (opacity 1→0 on scroll), (7) DIFFERENCE section dark background rgb(23,22,20) with light text, (9) Magnetic CTAs clickable and functional (modal opens). PAGE TRANSITIONS (8): All routes (Home→Services→Work→About→Contact→Home) work, scroll resets to 0, header/footer remain visible. REGRESSION (10): Services(3 sections), Work(3), About(5), Contact(3) all have scroll progress bar, no overflow. ACCESSIBILITY (11): prefers-reduced-motion hides scroll progress bar, renders ScrollSection as plain div (0 testid elements), content accessible, transitions work. ALL REQUIREMENTS MET. Production-ready."
+    - agent: "testing"
+      message: "✅ WEHA AI CHAT ENDPOINTS FULLY VERIFIED (9/9 tests passed). Created /app/backend_test_weha_ai.py and comprehensively tested new WeHA AI endpoints + regression. NEW ENDPOINTS: (1) GET /api/weha-ai/models returns 5 models with default 'openai/gpt-4o-mini', includes 'anthropic/claude-3.5-sonnet'. (2) POST /api/weha-ai/chat with valid body returns 200 with non-empty reply, model='openai/gpt-4o-mini', mocked=true (demo mode - OPENROUTER_API_KEY blank). (3) Empty messages correctly rejected with 422. (4) Invalid model correctly falls back to default 'openai/gpt-4o-mini'. (5) Multi-turn conversation works (both turns return 200 with valid replies). REGRESSION: (6) GET /api/ returns {message: 'WeHA API'}. (7) POST /api/audit-requests returns 200 with valid data. (8) GET /api/availability returns 200 with 18 slots. (9) POST /api/playbook-requests returns 200 with valid data. All endpoints functional. WeHA AI working in MOCKED demo mode as expected (OPENROUTER_API_KEY intentionally blank). No issues found."

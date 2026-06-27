@@ -9,7 +9,9 @@ const CONTACT_EMAIL = "hi@wehelpautomate.com";
 const nav = [
   { to: "/services", label: "Services" },
   { to: "/work", label: "Work" },
+  { to: "/resources", label: "Resources" },
   { to: "/about", label: "About" },
+  { to: "/weha-ai", label: "WeHA AI" },
   { to: "/contact", label: "Contact" },
 ];
 

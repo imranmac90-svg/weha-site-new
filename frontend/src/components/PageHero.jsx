@@ -1,5 +1,6 @@
 import Reveal from "@/components/Reveal";
 import PlaybookLeadForm from "@/components/PlaybookLeadForm";
+import NetworkScene from "@/three/NetworkScene";
 
 export default function PageHero({
   kicker,
@@ -13,6 +14,8 @@ export default function PageHero({
 }) {
   return (
     <section className="relative pt-32 md:pt-40 pb-16 md:pb-24 min-h-[72vh] flex items-center overflow-hidden">
+      {/* 3D network is confined to the hero on inner pages */}
+      <NetworkScene contained />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

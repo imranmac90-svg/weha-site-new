@@ -76,6 +76,17 @@
     html {
         scroll-behavior: smooth;
     }
+    html {
+        /* Native scrollbar removed in favour of the decorative ScrollPill. */
+        scrollbar-width: none;        /* Firefox */
+        -ms-overflow-style: none;     /* IE/Edge legacy */
+    }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;                /* Chrome/Safari */
+    }
     body {
         margin: 0;
         font-family: 'General Sans', ui-sans-serif, system-ui, sans-serif;

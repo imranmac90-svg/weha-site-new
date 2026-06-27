@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
+import ScrollPill from "@/components/ScrollPill";
 import Cursor from "@/components/Cursor";
 import NetworkScene from "@/three/NetworkScene";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
@@ -17,15 +18,25 @@ import Services from "@/pages/Services";
 import Work from "@/pages/Work";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import Resources from "@/pages/Resources";
+import ResourceWorkbooks from "@/pages/ResourceWorkbooks";
+import ResourceWorkflows from "@/pages/ResourceWorkflows";
+import ResourceEbooks from "@/pages/ResourceEbooks";
+import WehaAI from "@/pages/WehaAI";
 
 function scrollTop() {
   if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
   else window.scrollTo({ top: 0, behavior: "instant" });
 }
 
-// Crossfade between pages. mode="wait" lets the outgoing page leave before the
-// new one enters; the scroll resets to top exactly between the two beats so the
-// new page always begins from the hero.
+// The full-viewport network backdrop only lives on the Home page. Inner pages
+// render their own network confined to the hero (see PageHero).
+function HomeBackground() {
+  const { pathname } = useLocation();
+  if (pathname !== "/") return null;
+  return <NetworkScene />;
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
   return (
@@ -43,6 +54,11 @@ function AnimatedRoutes() {
           <Route path="/work" element={<Work />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/resources" element={<Resources />} />
+          <Route path="/resources/workbooks" element={<ResourceWorkbooks />} />
+          <Route path="/resources/workflow-automations" element={<ResourceWorkflows />} />
+          <Route path="/resources/ebooks" element={<ResourceEbooks />} />
+          <Route path="/weha-ai" element={<WehaAI />} />
         </Routes>
       </motion.main>
     </AnimatePresence>
@@ -55,9 +71,10 @@ function App() {
       <BookingProvider>
         <SmoothScroll />
         <ScrollProgress />
+        <ScrollPill />
         <Cursor />
-        <NetworkScene />
         <BrowserRouter>
+          <HomeBackground />
           <div className="relative z-10 text-weha-text">
             <Header />
             <AnimatedRoutes />

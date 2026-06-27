@@ -22,6 +22,17 @@ export async function submitPlaybookLead(payload) {
   return data;
 }
 
+// WeHA AI — chat with the automation assistant.
+export async function sendWehaAiMessage({ session_id, messages, model }) {
+  const { data } = await axios.post(`${API}/weha-ai/chat`, { session_id, messages, model });
+  return data; // { reply, model, mocked }
+}
+
+export async function fetchWehaAiModels() {
+  const { data } = await axios.get(`${API}/weha-ai/models`);
+  return data; // { models: [...], default: "..." }
+}
+
 // Placeholder download URL for the AI Transformation Playbook
 export const PLAYBOOK_DOWNLOAD_URL =
   "https://drive.google.com/uc?export=download&id=PLACEHOLDER_PLAYBOOK_ID";

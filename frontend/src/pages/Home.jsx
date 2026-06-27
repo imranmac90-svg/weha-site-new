@@ -8,6 +8,7 @@ import MaskReveal from "@/components/MaskReveal";
 import Magnetic from "@/components/Magnetic";
 import IntegrationStrip from "@/components/IntegrationStrip";
 import ScrollSection from "@/components/ScrollSection";
+import Seo from "@/components/Seo";
 import { useBooking } from "@/context/BookingContext";
 
 const pains = [
@@ -84,6 +85,23 @@ export default function Home() {
 
   return (
     <div data-testid="home-page" className="overflow-x-hidden">
+      <Seo
+        title=""
+        description="We Help Automate (WeHA) turns your messiest manual workflows into compliance-grade AI systems — built in days, not months. Free AI Audit for SMBs in the UAE, Australia & Singapore."
+        path="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "We Help Automate",
+          alternateName: "WeHA",
+          url: "https://www.wehelpautomate.com",
+          email: "hi@wehelpautomate.com",
+          description:
+            "Compliance-grade AI automation for SMBs in real estate, freight, accounting and finance across the UAE, Australia and Singapore.",
+          areaServed: ["United Arab Emirates", "Australia", "Singapore"],
+          sameAs: ["https://www.linkedin.com/company/we-help-automate"],
+        }}
+      />
       {/* HERO — over the live floating tech network */}
       <section ref={heroRef} className="relative min-h-[88svh] flex items-center pointer-events-none overflow-hidden">
         <div
@@ -114,8 +132,8 @@ export default function Home() {
               </span>
             </Reveal>
             <h1 className="weha-display text-5xl sm:text-7xl lg:text-[5.5rem] mt-6 text-weha-text leading-[1.02]">
-              <MaskReveal delay={0.05}>Your business runs</MaskReveal>
-              <MaskReveal delay={0.13}>on 47 manual steps.</MaskReveal>
+              <MaskReveal delay={0.05}>Your business probably</MaskReveal>
+              <MaskReveal delay={0.13}>runs on 47 manual steps.</MaskReveal>
               <MaskReveal delay={0.21}>
                 <span className="italic text-weha-teal">Let's automate that.</span>
               </MaskReveal>

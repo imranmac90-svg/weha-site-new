@@ -3,6 +3,7 @@ import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
 import IntegrationStrip from "@/components/IntegrationStrip";
+import Seo from "@/components/Seo";
 import { ArrowRight, ArrowDown } from "lucide-react";
 
 const snapshots = [
@@ -87,6 +88,11 @@ function FlowChain({ before, after }) {
 export default function Work() {
   return (
     <div data-testid="work-page" className="overflow-x-hidden">
+      <Seo
+        title="Work — real-world automation examples"
+        description="See the automations WeHA has built and is building across real estate, freight forwarding, accounting, finance and more — each based on a real operational pain."
+        path="/work"
+      />
       <PageHero
         kicker="Work"
         title="What automation looks like in the"

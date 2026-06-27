@@ -3,6 +3,7 @@ import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
 import IntegrationStrip from "@/components/IntegrationStrip";
+import Seo from "@/components/Seo";
 
 const ABOUT_IMG = "https://static.prod-images.emergentagent.com/jobs/d99f9931-db5c-4ca2-b931-d6fcff8ded90/images/258b624bb01106851a47a12dd52dbd36909965f6f8188fe7423bb709d4ef20c2.png";
 
@@ -23,6 +24,11 @@ const values = [
 export default function About() {
   return (
     <div data-testid="about-page" className="overflow-x-hidden">
+      <Seo
+        title="About — built by a security engineer turned automator"
+        description="WeHA was founded by someone who spent a decade keeping systems secure. Every automation is compliance-grade, documented and auditable — no shortcuts."
+        path="/about"
+      />
       <PageHero
         title="Built by someone who spent a decade keeping systems secure — and a lot of time watching founders"
         italicWord="lose theirs to manual work."

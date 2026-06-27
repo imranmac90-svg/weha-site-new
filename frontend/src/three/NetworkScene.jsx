@@ -69,7 +69,16 @@ function makeChip(label, theme) {
   return tex;
 }
 
-export default function NetworkScene() {
+/**
+ * NetworkScene — the animated tool-network backdrop.
+ *
+ * Props:
+ *   contained: when true the canvas is absolutely positioned and sized to its
+ *     parent (used inside a page hero), and page-scroll coupling is disabled so
+ *     it does NOT bleed below the hero. When false (default) it is a fixed,
+ *     full-viewport background that reacts to page scroll (used on Home).
+ */
+export default function NetworkScene({ contained = false }) {
   const { theme } = useTheme();
   const mountRef = useRef(null);
 
@@ -79,12 +88,16 @@ export default function NetworkScene() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const pal = PALETTE[theme];
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+    const getSize = () =>
+      contained
+        ? [mount.clientWidth || window.innerWidth, mount.clientHeight || window.innerHeight]
+        : [window.innerWidth, window.innerHeight];
+
+    let [width, height] = getSize();
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(48, width / height, 0.1, 200);
-    camera.position.set(0, 0, 15);
+    camera.position.set(0, 0, contained ? 13 : 15);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(width, height);
@@ -150,12 +163,10 @@ export default function NetworkScene() {
     const buildLinks = () => {
       const linePts = [];
       const connections = [];
-      // hub to each node
       nodes.forEach((p) => {
         linePts.push(0, 0, 0, p.x, p.y, p.z);
         connections.push([new THREE.Vector3(0, 0, 0), p.clone()]);
       });
-      // nearest-neighbour node links
       nodes.forEach((a, i) => {
         const dists = nodes
           .map((b, j) => ({ j, d: a.distanceTo(b) }))
@@ -176,7 +187,6 @@ export default function NetworkScene() {
       group.add(lines);
       lineSegs.push(lines);
 
-      // pulses traveling along a subset of connections
       const pulseGeo = new THREE.SphereGeometry(0.09, 12, 12);
       const chosen = connections.filter(() => Math.random() > 0.55).slice(0, 14);
       chosen.forEach((conn) => {
@@ -202,7 +212,6 @@ export default function NetworkScene() {
     );
     scene.add(particles);
 
-    // build after fonts ready so chip text renders correctly
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(() => { buildNodes(); buildLinks(); });
     } else {
@@ -241,7 +250,6 @@ export default function NetworkScene() {
     window.addEventListener("pointerup", onUp);
     window.addEventListener("pointermove", onMove);
 
-    // hover raycast
     const raycaster = new THREE.Raycaster();
     let hovered = null;
     const onHover = (e) => {
@@ -256,15 +264,17 @@ export default function NetworkScene() {
     };
     el.addEventListener("pointermove", onHover);
 
-    // scroll progress
+    // scroll progress (only meaningful for the fixed/full-page variant)
     const scrollState = { p: 0, hero: 0 };
     const updateScroll = () => {
       const max = Math.max(1, document.body.scrollHeight - window.innerHeight);
       scrollState.p = Math.min(1, Math.max(0, window.scrollY / max));
       scrollState.hero = Math.min(1, Math.max(0, window.scrollY / window.innerHeight));
     };
-    window.addEventListener("scroll", updateScroll, { passive: true });
-    updateScroll();
+    if (!contained) {
+      window.addEventListener("scroll", updateScroll, { passive: true });
+      updateScroll();
+    }
 
     // ---- LOOP ----
     const clock = new THREE.Clock();
@@ -274,27 +284,24 @@ export default function NetworkScene() {
       const t = clock.getElapsedTime();
       const { hero, p } = scrollState;
 
-      // smoothing
       mouse.lerp(targetMouse, 0.06);
       dragVel.x *= 0.93;
       dragVel.y *= 0.93;
       if (!dragging) { dragRot.x += dragVel.x; dragRot.y += dragVel.y; }
 
       const autoRot = reduce ? 0 : t * 0.045;
-      // Backdrop stays calm while reading: the network drifts subtly on scroll
-      // instead of competing with the foreground. The hero dolly stays punchy.
       group.rotation.y = autoRot + dragRot.y + mouse.x * 0.25 + p * 0.4;
       group.rotation.x = dragRot.x + mouse.y * 0.18 + Math.sin(t * 0.2) * 0.05 + p * 0.08;
       const expand = 1 + p * 0.08 + Math.sin(t * 0.4) * 0.008;
       group.scale.setScalar(expand);
 
-      // camera dolly + parallax on scroll/mouse — continuous travel through the page
       camera.position.x += (mouse.x * 1.6 - camera.position.x) * 0.05;
       camera.position.y += (mouse.y * 1.0 - camera.position.y) * 0.05;
-      camera.position.z = 15 - hero * 4.5 - p * 1.2;
+      if (!contained) {
+        camera.position.z = 15 - hero * 4.5 - p * 1.2;
+      }
       camera.lookAt(0, 0, 0);
 
-      // hub pulse
       const pulse = 1 + Math.sin(t * 1.6) * 0.12;
       hub.scale.setScalar(pulse);
       halo.scale.setScalar(1 + Math.sin(t * 1.6) * 0.25);
@@ -302,7 +309,6 @@ export default function NetworkScene() {
       ring.rotation.x = t * 0.3;
       ring.rotation.y = t * 0.22;
 
-      // node hover scale + gentle bob
       if (built) {
         sprites.forEach((sp) => {
           const u = sp.userData;
@@ -313,7 +319,6 @@ export default function NetworkScene() {
         });
       }
 
-      // pulses travel
       pulses.forEach((pl) => {
         pl.t += pl.speed * 0.01;
         if (pl.t > 1) pl.t = 0;
@@ -334,23 +339,28 @@ export default function NetworkScene() {
     animate();
 
     const onResize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      [width, height] = getSize();
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
     };
     window.addEventListener("resize", onResize);
+    let ro;
+    if (contained && typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(onResize);
+      ro.observe(mount);
+    }
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", updateScroll);
+      if (!contained) window.removeEventListener("scroll", updateScroll);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointermove", onMove);
       el.removeEventListener("pointerdown", onDown);
       el.removeEventListener("pointermove", onHover);
+      if (ro) ro.disconnect();
       renderer.dispose();
       scene.traverse((o) => {
         if (o.geometry) o.geometry.dispose();
@@ -361,14 +371,14 @@ export default function NetworkScene() {
       });
       if (el.parentNode === mount) mount.removeChild(el);
     };
-  }, [theme]);
+  }, [theme, contained]);
 
   return (
     <div
       ref={mountRef}
       data-testid="network-scene"
       aria-hidden="true"
-      className="fixed inset-0 z-0"
+      className={contained ? "absolute inset-0 z-0" : "fixed inset-0 z-0"}
       style={{ pointerEvents: "auto" }}
     />
   );
