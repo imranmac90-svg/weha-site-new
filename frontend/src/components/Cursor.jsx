@@ -38,8 +38,8 @@ export default function Cursor() {
           translateY: "-50%",
           width: hovering ? 46 : 10,
           height: hovering ? 46 : 10,
-          backgroundColor: hovering ? "transparent" : "#01696f",
-          border: hovering ? "1.5px solid #01696f" : "none",
+          backgroundColor: hovering ? "transparent" : "#5b3fa6",
+          border: hovering ? "1.5px solid #5b3fa6" : "none",
           transition: "width 0.25s ease, height 0.25s ease, background-color 0.25s ease",
         }}
         aria-hidden="true"

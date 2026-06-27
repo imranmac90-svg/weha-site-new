@@ -10,9 +10,9 @@
     --weha-muted: rgba(40, 37, 29, 0.62);
     --weha-faint: rgba(40, 37, 29, 0.40);
     --weha-border: rgba(40, 37, 29, 0.12);
-    --weha-teal: #01696f;
-    --weha-pop: #01696f;
-    --weha-teal-soft: rgba(1, 105, 111, 0.10);
+    --weha-teal: #5b3fa6;
+    --weha-pop: #5b3fa6;
+    --weha-teal-soft: rgba(91, 63, 166, 0.10);
 
     --background: 48 27% 96%;
     --foreground: 42 16% 14%;
@@ -20,19 +20,19 @@
     --card-foreground: 42 16% 14%;
     --popover: 0 0% 100%;
     --popover-foreground: 42 16% 14%;
-    --primary: 184 98% 22%;
+    --primary: 258 45% 45%;
     --primary-foreground: 0 0% 100%;
     --secondary: 48 20% 92%;
     --secondary-foreground: 42 16% 14%;
     --muted: 48 20% 92%;
     --muted-foreground: 42 8% 40%;
-    --accent: 184 98% 22%;
+    --accent: 258 45% 45%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
     --border: 42 16% 86%;
     --input: 42 16% 86%;
-    --ring: 184 98% 22%;
+    --ring: 258 45% 45%;
     --radius: 0.5rem;
 }
 
@@ -44,9 +44,9 @@
     --weha-muted: rgba(243, 241, 234, 0.60);
     --weha-faint: rgba(243, 241, 234, 0.38);
     --weha-border: rgba(243, 241, 234, 0.12);
-    --weha-teal: #34b3ab;
-    --weha-pop: #34b3ab;
-    --weha-teal-soft: rgba(52, 179, 171, 0.12);
+    --weha-teal: #9b80e0;
+    --weha-pop: #9b80e0;
+    --weha-teal-soft: rgba(155, 128, 224, 0.12);
 
     --background: 48 9% 9%;
     --foreground: 45 25% 93%;
@@ -54,19 +54,19 @@
     --card-foreground: 45 25% 93%;
     --popover: 45 7% 12%;
     --popover-foreground: 45 25% 93%;
-    --primary: 176 55% 45%;
+    --primary: 258 55% 69%;
     --primary-foreground: 48 9% 9%;
     --secondary: 45 6% 16%;
     --secondary-foreground: 45 25% 93%;
     --muted: 45 6% 16%;
     --muted-foreground: 45 10% 62%;
-    --accent: 176 55% 45%;
+    --accent: 258 55% 69%;
     --accent-foreground: 48 9% 9%;
     --destructive: 0 62% 45%;
     --destructive-foreground: 0 0% 100%;
     --border: 45 6% 20%;
     --input: 45 6% 20%;
-    --ring: 176 55% 45%;
+    --ring: 258 55% 69%;
 }
 
 @layer base {

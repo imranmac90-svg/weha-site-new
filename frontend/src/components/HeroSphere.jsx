@@ -23,8 +23,8 @@ export default function HeroSphere() {
     const group = new THREE.Group();
     scene.add(group);
 
-    const teal = new THREE.Color("#01696f");
-    const tealBright = new THREE.Color("#34b3ab");
+    const teal = new THREE.Color("#5b3fa6");
+    const tealBright = new THREE.Color("#9b80e0");
     const warm = new THREE.Color("#e9e4d6");
 
     const N = 44;

@@ -155,20 +155,20 @@ export default function Home() {
       <section className="relative py-28 md:py-40 overflow-hidden" style={{ background: "#171614" }}>
         <div
           className="absolute inset-0 opacity-[0.55]"
-          style={{ background: "radial-gradient(circle at 75% 50%, rgba(52,179,171,0.30), transparent 55%)" }}
+          style={{ background: "radial-gradient(circle at 75% 50%, rgba(155,128,224,0.30), transparent 55%)" }}
         />
         <div className="relative max-w-7xl mx-auto px-5 sm:px-8 grid gap-14 md:grid-cols-2 md:gap-20 md:items-center">
           <Reveal>
             <h2 className="weha-display text-4xl md:text-6xl text-[#f7f6f2] leading-[1.05]">
               AI automation, built by someone who spent a decade{" "}
-              <span className="italic" style={{ color: "#34b3ab" }}>stopping breaches.</span>
+              <span className="italic" style={{ color: "#9b80e0" }}>stopping breaches.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.12}>
             <ul className="space-y-7">
               {trust.map((t, i) => (
                 <li key={i} className="flex gap-4">
-                  <span style={{ color: "#34b3ab" }} className="text-xl leading-none mt-1">✦</span>
+                  <span style={{ color: "#9b80e0" }} className="text-xl leading-none mt-1">✦</span>
                   <span className="text-lg text-[#e9e6df] leading-relaxed">{t}</span>
                 </li>
               ))}
