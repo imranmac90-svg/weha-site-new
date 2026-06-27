@@ -24,7 +24,7 @@ export default function Footer() {
               <Logo animated />
             </div>
             <p className="mt-5 text-weha-muted max-w-xs text-base leading-relaxed">
-              Automation without compliance shortcuts.
+              Automation without the busywork.
             </p>
             <div className="mt-6 flex items-center gap-3">
               <a
@@ -66,11 +66,11 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs font-semibold tracking-widest uppercase text-weha-faint mb-4">Markets</p>
+            <p className="text-xs font-semibold tracking-widest uppercase text-weha-faint mb-4">Where we work</p>
             <ul className="space-y-3 text-weha-muted">
-              <li>UAE · Dubai</li>
-              <li>Australia</li>
-              <li>Singapore</li>
+              <li>Remote-first</li>
+              <li>SMBs worldwide</li>
+              <li>Any time zone</li>
             </ul>
             <a
               href="mailto:hello@wehelpautomate.com"
@@ -84,7 +84,7 @@ export default function Footer() {
 
         <div className="mt-14 pt-6 border-t border-weha-border flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
           <p className="text-sm text-weha-faint">© {new Date().getFullYear()} We Help Automate. All rights reserved.</p>
-          <p className="text-sm text-weha-faint">UAE · Australia · Singapore</p>
+          <p className="text-sm text-weha-faint">Remote-first · Worldwide</p>
         </div>
       </div>
     </footer>

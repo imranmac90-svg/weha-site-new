@@ -2,7 +2,7 @@
 // Logos are rendered grayscale at reduced opacity for a refined, on-brand strip;
 // brand color appears on hover.
 const TOOLS = [
-  { name: "Xero",     slug: "xero" },
+  { name: "Google Sheets", slug: "googlesheets" },
   { name: "n8n",      slug: "n8n" },
   { name: "HubSpot",  slug: "hubspot" },
   { name: "WhatsApp", slug: "whatsapp" },
