@@ -193,7 +193,7 @@ export default function Home() {
 
       {/* DIFFERENCE — dark security moment */}
       <ScrollSection direction="left">
-      <section className="section-glass relative py-28 md:py-40 overflow-hidden" style={{ background: "#171614" }}>
+      <section className="section-glass relative py-28 md:py-40 overflow-hidden" style={{ background: "#171614", "--weha-bg": "#171614", "--weha-text": "#f7f6f2" }}>
         <div
           className="absolute inset-0 opacity-[0.55]"
           style={{ background: "radial-gradient(circle at 75% 50%, rgba(155,128,224,0.30), transparent 55%)" }}

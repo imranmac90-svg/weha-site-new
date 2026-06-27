@@ -174,10 +174,53 @@ frontend:
           agent: "main"
           comment: "Recreated /app/frontend/.env with REACT_APP_BACKEND_URL=https://promo-site-24.preview.emergentagent.com. Frontend compiles and serves successfully."
 
+  - task: "DIFFERENCE section dark background readability ('spent a decade stopping breaches')"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/Home.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "The 'AI automation, built by someone who spent a decade stopping breaches' section (DIFFERENCE section on Home) was too transparent/washed-out grey, making the white text hard to read."
+        - working: "NA"
+          agent: "main"
+          comment: "Root cause: section had .section-glass whose ::before overlays var(--weha-bg) (cream #f7f6f2 in light mode) at 70-82% opacity over the intended dark #171614 background, washing it to light grey. Fix: locally override CSS vars on this section via inline style {'--weha-bg':'#171614','--weha-text':'#f7f6f2'} so the glass overlay tints DARK instead of cream. Section is now properly dark with readable white/light text in both light and dark themes."
+
+
+  - task: "Full mobile and tablet responsive testing sitewide"
+    implemented: true
+    working: true
+    file: "All pages (Home, Services, Work, About, Contact)"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Comprehensive responsive testing requested across all pages (Home, Services, Work, About, Contact) at multiple viewports: Mobile (390x844, 360x800), Tablet portrait (768x1024), Tablet landscape (1024x768). Need to verify: (1) NO horizontal scrolling/overflow, (2) No content cut off or overlapping, (3) Layout reflows correctly, (4) Images and 3D network don't bleed over text, (5) No console errors. Specific focus areas: Header/Nav mobile menu (opaque background, no 3D bleed), DIFFERENCE section (dark background), Booking modal (fits viewport, no overflow), Contact form (inputs tappable), Integration logo ticker (no overflow). Test in both light and dark themes."
+        - working: true
+          agent: "testing"
+          comment: "✅ COMPREHENSIVE RESPONSIVE TESTING COMPLETE - ALL TESTS PASSED. Tested all 5 pages (Home, Services, Work, About, Contact) at 4 viewports (390x844, 360x800, 768x1024, 1024x768). HORIZONTAL OVERFLOW: ✅ ZERO horizontal overflow detected on ANY page at ANY viewport (scrollWidth === clientWidth for all 20 page/viewport combinations). MOBILE MENU: ✅ Opens correctly with FULLY OPAQUE background in both light mode (rgb(247,246,242)) and dark mode (rgb(23,22,20)). NO 3D network chips bleeding through. Navigation links work, theme toggle functional. BOOKING MODAL: ✅ Fits within mobile viewport (modal width 370.5px < window width 390px). Opaque background (no transparency). Calendar and slots display correctly. CONTACT FORM: ✅ All inputs are clickable and typeable. Tested with 'Sarah Johnson' input - works perfectly. Form layout correct on mobile. INTEGRATION STRIP: ✅ Renders correctly on home page, no overflow. THEME TOGGLE: ✅ Works perfectly in both directions (light <-> dark). Body background changes correctly. CONSOLE ERRORS: ✅ ZERO console errors on page load. Only 3 minor warnings (THREE.js deprecation - non-critical). TOTAL: 30+ tests run, ALL PASSED. Screenshots captured for mobile menu (light/dark), DIFFERENCE section, booking modal, and contact form. Website is fully responsive with no layout issues across all tested viewports."
+
+  - task: "Cursor responsiveness (remove lag)"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/components/Cursor.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Removed framer-motion useSpring smoothing that caused the custom cursor dot to lag behind the real mouse. Dot now binds directly to raw pointer x/y for 1:1 tracking. Kept smooth size/color transition only for hover state. Desktop-only (pointer: fine)."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 4
+  test_sequence: 6
   run_ui: false
 
 test_plan:
@@ -313,3 +356,7 @@ agent_communication:
       message: "✅ 3D SCROLL-PARALLAX SITEWIDE ROLLOUT VERIFIED (24/24 tests passed). Tested all 4 non-home pages at desktop viewport (1920x900). SERVICES: 3 sections with [left, right, left] pattern, no horizontal scrollbar, parallax active, CTA visible. WORK: 3 sections with [left, right, left] pattern, no horizontal scrollbar, parallax active, CTA visible. ABOUT: 5 sections with [left, right, left, right, left] pattern, no horizontal scrollbar, parallax active, CTA visible. CONTACT: 3 sections with [left, right, left] pattern, no horizontal scrollbar, parallax active, form input typeable ('Sarah Johnson' entered successfully), section-glass backdrop present (opacity 0.78, blur 14px, bg rgb(247,246,242)). ACCESSIBILITY: prefers-reduced-motion test on /work shows ScrollSection correctly degrades to plain div (0 scroll-section elements), content fully accessible. Screenshots saved for all pages. Sitewide rollout complete and working perfectly."
     - agent: "testing"
       message: "✅ PLAYBOOK LEAD CAPTURE ENDPOINTS FULLY VERIFIED (12/12 tests passed). Created /app/backend_test_playbook.py and comprehensively tested new endpoints. POST /api/playbook-requests: (1) All fields submission works (name, company, designation, email, industry, country, session_interest, source) with 200 response, id + created_at ISO Z format. (2) Required-only fields (name, company, email) works, optional fields null. (3-4) Empty name/company validation returns 422 with correct error message. (5) Invalid email format rejected by pydantic EmailStr with 422. (6) Missing email field returns 422. GET /api/playbook-requests: (7) Returns list sorted by created_at desc with created records present. (8) No interference - GET /api/audit-requests still returns audit records (3 found). (9) Data stored in separate db.playbook_requests collection. REGRESSION TESTS: (10) GET /api/ returns {message: WeHA API}. (11) GET /api/availability works with next Tuesday + Asia/Dubai, returns 18 slots. (12) POST /api/audit-requests with valid payload works, booking flow intact. All endpoints functional, collections properly separated."
+orks, optional fields null. (3-4) Empty name/company validation returns 422 with correct error message. (5) Invalid email format rejected by pydantic EmailStr with 422. (6) Missing email field returns 422. GET /api/playbook-requests: (7) Returns list sorted by created_at desc with created records present. (8) No interference - GET /api/audit-requests still returns audit records (3 found). (9) Data stored in separate db.playbook_requests collection. REGRESSION TESTS: (10) GET /api/ returns {message: WeHA API}. (11) GET /api/availability works with next Tuesday + Asia/Dubai, returns 18 slots. (12) POST /api/audit-requests with valid payload works, booking flow intact. All endpoints functional, collections properly separated."
+
+    - agent: "testing"
+      message: "✅ COMPREHENSIVE RESPONSIVE TESTING COMPLETE - ALL CRITICAL TESTS PASSED. Performed exhaustive testing across all 5 pages (Home, Services, Work, About, Contact) at 4 viewports (Mobile iPhone 390x844, Mobile Android 360x800, Tablet Portrait 768x1024, Tablet Landscape 1024x768) in both light and dark themes. KEY FINDINGS: (1) HORIZONTAL OVERFLOW: ✅ ZERO overflow on any page at any viewport - all pages pass scrollWidth === clientWidth test. (2) DIFFERENCE SECTION: ✅ Dark background (rgb(23,22,20)) confirmed in both themes, light text readable. (3) MOBILE MENU: ✅ Fully opaque background in both light (cream) and dark (dark) modes, NO 3D network bleed-through, navigation functional. (4) BOOKING MODAL: ✅ Fits mobile viewport (370.5px < 390px), opaque background, no overflow. (5) CONTACT FORM: ✅ All inputs typeable and functional on mobile. (6) INTEGRATION STRIP: ✅ Renders correctly, no overflow. (7) THEME TOGGLE: ✅ Works perfectly both directions. (8) CONSOLE ERRORS: ✅ ZERO errors, only 3 minor THREE.js deprecation warnings (non-critical). TOTAL: 30+ tests, ALL PASSED. Screenshots saved. Website is production-ready for responsive devices."
