@@ -73,7 +73,7 @@ export default function Home() {
   return (
     <div data-testid="home-page">
       {/* HERO — over the live floating tech network */}
-      <section className="relative min-h-[100svh] flex items-center pointer-events-none overflow-hidden">
+      <section className="relative min-h-[88svh] flex items-center pointer-events-none overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -81,7 +81,7 @@ export default function Home() {
               "linear-gradient(to right, var(--weha-bg) 0%, var(--weha-bg) 24%, color-mix(in srgb, var(--weha-bg) 55%, transparent) 48%, transparent 76%)",
           }}
         />
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-8 w-full pt-24 pb-32">
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-8 w-full pt-20 pb-16">
           <div className="max-w-3xl">
             <Reveal>
               <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase">
@@ -122,11 +122,6 @@ export default function Home() {
                   See How It Works <ArrowRight size={15} />
                 </Link>
               </div>
-            </Reveal>
-            <Reveal delay={0.55}>
-              <p className="mt-10 flex items-center gap-2 text-sm text-weha-faint">
-                <MousePointer2 size={15} /> Drag the network to explore the stack we build with.
-              </p>
             </Reveal>
           </div>
         </div>
