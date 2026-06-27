@@ -37,7 +37,7 @@ function Logo({ name, slug }) {
   );
 }
 
-export default function IntegrationStrip() {
+export default function IntegrationStrip({ heading = "Fluent in your stack" }) {
   return (
     <section
       aria-label="Tool fluency — integrations we build with"
@@ -45,7 +45,7 @@ export default function IntegrationStrip() {
       className="relative border-y border-weha-border bg-weha-surface/70 backdrop-blur-sm py-7 md:py-9 overflow-hidden"
     >
       <p className="text-center text-[0.7rem] md:text-xs font-semibold tracking-[0.22em] uppercase text-weha-faint mb-5">
-        Fluent in your stack
+        {heading}
       </p>
       {/* edge fades */}
       <div className="pointer-events-none absolute inset-y-0 left-0 w-24 md:w-40 z-10"

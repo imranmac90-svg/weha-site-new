@@ -220,6 +220,30 @@ frontend:
           agent: "main"
           comment: "Removed framer-motion useSpring smoothing that caused the custom cursor dot to lag behind the real mouse. Dot now binds directly to raw pointer x/y for 1:1 tracking. Kept smooth size/color transition only for hover state. Desktop-only (pointer: fine)."
 
+  - task: "IntegrationStrip ticker added below hero on all non-home pages with unique headings"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/components/IntegrationStrip.jsx, frontend/src/pages/Services.jsx, frontend/src/pages/Work.jsx, frontend/src/pages/About.jsx, frontend/src/pages/Contact.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added optional `heading` prop to IntegrationStrip (default 'Fluent in your stack'). Rendered the ticker right below PageHero on all 4 non-home pages with unique catchy headings: Services='Plays nice with your whole toolbox', Work='The tools doing the heavy lifting', About='Tools we speak natively', Contact='Bring your stack — we'll wire it up'. Visually verified Services + Contact render with correct headings and animated logos, no overflow."
+
+  - task: "Footer LinkedIn button (brand color, new tab, placeholder URL)"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/components/Footer.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added LinkedIn icon button below the 'Automation without compliance shortcuts.' text in footer. Icon uses brand color (text-weha-pop = #5b3fa6 light / #9b80e0 dark), opens placeholder URL https://www.linkedin.com/company/we-help-automate in a new tab (target=_blank rel=noopener). Verified computed color rgb(91,63,166) and target=_blank."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"

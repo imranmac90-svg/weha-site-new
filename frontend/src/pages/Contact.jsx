@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
+import IntegrationStrip from "@/components/IntegrationStrip";
 import { submitAuditRequest } from "@/lib/api";
 import {
   Accordion,
@@ -90,6 +91,8 @@ export default function Contact() {
         subtitle="Book a free 60-minute AI Audit. We'll map your top 3 manual workflows and show you what one automation would look like — live, for your specific business."
         showForm={false}
       />
+
+      <IntegrationStrip heading="Bring your stack — we'll wire it up" />
 
       <ScrollSection direction="left">
         <section className="section-glass relative pb-8 pt-4">

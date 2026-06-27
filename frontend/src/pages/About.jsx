@@ -2,6 +2,7 @@ import PageHero from "@/components/PageHero";
 import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
+import IntegrationStrip from "@/components/IntegrationStrip";
 
 const ABOUT_IMG = "https://static.prod-images.emergentagent.com/jobs/d99f9931-db5c-4ca2-b931-d6fcff8ded90/images/258b624bb01106851a47a12dd52dbd36909965f6f8188fe7423bb709d4ef20c2.png";
 
@@ -29,6 +30,8 @@ export default function About() {
         formTestid="about-lead-form"
         formSource="about"
       />
+
+      <IntegrationStrip heading="Tools we speak natively" />
 
       {/* Founder story */}
       <ScrollSection direction="left">

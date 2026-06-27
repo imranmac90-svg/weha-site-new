@@ -2,6 +2,7 @@ import PageHero from "@/components/PageHero";
 import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
+import IntegrationStrip from "@/components/IntegrationStrip";
 import { ArrowRight, ArrowDown } from "lucide-react";
 
 const snapshots = [
@@ -95,6 +96,8 @@ export default function Work() {
         formTestid="work-lead-form"
         formSource="work"
       />
+
+      <IntegrationStrip heading="The tools doing the heavy lifting" />
 
       <ScrollSection direction="left">
       <section className="section-glass relative section-solid py-12 md:py-16">

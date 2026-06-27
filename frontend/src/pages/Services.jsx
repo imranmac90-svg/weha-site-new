@@ -2,6 +2,7 @@ import PageHero from "@/components/PageHero";
 import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
+import IntegrationStrip from "@/components/IntegrationStrip";
 
 const services = [
   {
@@ -55,6 +56,8 @@ export default function Services() {
         formTestid="services-lead-form"
         formSource="services"
       />
+
+      <IntegrationStrip heading="Plays nice with your whole toolbox" />
 
       <ScrollSection direction="left">
       <section className="section-glass relative section-solid py-12 md:py-16">

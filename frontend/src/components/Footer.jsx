@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
+import { Linkedin } from "lucide-react";
 import Logo from "@/components/Logo";
+
+// Placeholder — replace with the real company LinkedIn URL.
+const LINKEDIN_URL = "https://www.linkedin.com/company/we-help-automate";
 
 const nav = [
   { to: "/services", label: "Services" },
@@ -20,6 +24,16 @@ export default function Footer() {
             <p className="mt-5 text-weha-muted max-w-xs text-base leading-relaxed">
               Automation without compliance shortcuts.
             </p>
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow We Help Automate on LinkedIn"
+              data-testid="footer-linkedin"
+              className="mt-6 inline-flex items-center justify-center h-11 w-11 rounded-full border border-weha-border text-weha-pop hover:bg-weha-teal-soft hover:border-weha-pop transition-colors"
+            >
+              <Linkedin className="h-5 w-5" strokeWidth={2} />
+            </a>
           </div>
 
           <div>
