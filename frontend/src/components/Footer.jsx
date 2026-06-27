@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { Linkedin } from "lucide-react";
+import { Linkedin, Mail } from "lucide-react";
 import Logo from "@/components/Logo";
 
 // Placeholder — replace with the real company LinkedIn URL.
 const LINKEDIN_URL = "https://www.linkedin.com/company/we-help-automate";
+const CONTACT_EMAIL = "hi@wehelpautomate.com";
 
 const nav = [
   { to: "/services", label: "Services" },
@@ -24,16 +25,26 @@ export default function Footer() {
             <p className="mt-5 text-weha-muted max-w-xs text-base leading-relaxed">
               Automation without compliance shortcuts.
             </p>
-            <a
-              href={LINKEDIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Follow We Help Automate on LinkedIn"
-              data-testid="footer-linkedin"
-              className="mt-6 inline-flex items-center justify-center h-11 w-11 rounded-full border border-weha-border text-weha-pop hover:bg-weha-teal-soft hover:border-weha-pop transition-colors"
-            >
-              <Linkedin className="h-5 w-5" strokeWidth={2} />
-            </a>
+            <div className="mt-6 flex items-center gap-3">
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow We Help Automate on LinkedIn"
+                data-testid="footer-linkedin"
+                className="inline-flex items-center justify-center h-11 w-11 rounded-lg border border-weha-border text-weha-pop hover:bg-weha-teal-soft hover:border-weha-pop transition-colors"
+              >
+                <Linkedin className="h-5 w-5" strokeWidth={2} />
+              </a>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                aria-label={`Email us at ${CONTACT_EMAIL}`}
+                data-testid="footer-email-icon"
+                className="inline-flex items-center justify-center h-11 w-11 rounded-lg border border-weha-border text-weha-pop hover:bg-weha-teal-soft hover:border-weha-pop transition-colors"
+              >
+                <Mail className="h-5 w-5" strokeWidth={2} />
+              </a>
+            </div>
           </div>
 
           <div>
