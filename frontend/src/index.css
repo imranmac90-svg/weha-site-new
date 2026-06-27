@@ -120,6 +120,40 @@
         border-radius: 1px;
         transition: background-color 0.4s ease;
     }
+
+    /* Footer-only continuous animation:
+       1) the violet stroke "draws" in from the top,
+       2) "HA" eases in from the right,
+       3) gentle pause, then loops. */
+    .weha-logo--animated .weha-logo__stroke {
+        transform-origin: top center;
+        animation: weha-logo-stroke 4.8s cubic-bezier(.5,.1,.2,1) infinite;
+    }
+    .weha-logo--animated .weha-logo__ha {
+        animation: weha-logo-ha 4.8s cubic-bezier(.5,.1,.2,1) infinite;
+        display: inline-block;
+    }
+    .weha-logo--animated:hover .weha-logo__stroke,
+    .weha-logo--animated:hover .weha-logo__ha {
+        animation-play-state: paused;
+    }
+    @keyframes weha-logo-stroke {
+        0%, 6%   { transform: translateY(0.06em) scaleY(0); opacity: 0; }
+        28%      { transform: translateY(0.06em) scaleY(1); opacity: 1; }
+        78%      { transform: translateY(0.06em) scaleY(1); opacity: 1; }
+        92%      { transform: translateY(0.06em) scaleY(1); opacity: 0.55; }
+        100%     { transform: translateY(0.06em) scaleY(0); opacity: 0; }
+    }
+    @keyframes weha-logo-ha {
+        0%, 18%  { opacity: 0; transform: translateX(0.4em); }
+        38%      { opacity: 1; transform: translateX(0); }
+        82%      { opacity: 1; transform: translateX(0); }
+        100%     { opacity: 0; transform: translateX(0.4em); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .weha-logo--animated .weha-logo__stroke,
+        .weha-logo--animated .weha-logo__ha { animation: none; }
+    }
     .btn-teal {
         display: inline-flex;
         align-items: center;
