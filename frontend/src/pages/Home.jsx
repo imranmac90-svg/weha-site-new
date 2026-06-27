@@ -7,6 +7,7 @@ import Parallax from "@/components/Parallax";
 import MaskReveal from "@/components/MaskReveal";
 import Magnetic from "@/components/Magnetic";
 import IntegrationStrip from "@/components/IntegrationStrip";
+import ScrollSection from "@/components/ScrollSection";
 import { useBooking } from "@/context/BookingContext";
 
 const pains = [
@@ -71,7 +72,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div data-testid="home-page">
+    <div data-testid="home-page" className="overflow-x-hidden">
       {/* HERO — over the live floating tech network */}
       <section className="relative min-h-[88svh] flex items-center pointer-events-none overflow-hidden">
         <div
@@ -139,6 +140,7 @@ export default function Home() {
       <IntegrationStrip />
 
       {/* PAIN — glass cards floating over the network */}
+      <ScrollSection direction="left">
       <section className="relative py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -164,8 +166,10 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+      </ScrollSection>
 
       {/* HOW IT WORKS */}
+      <ScrollSection direction="right">
       <section className="relative section-surface border-y border-weha-border py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -185,8 +189,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </ScrollSection>
 
       {/* DIFFERENCE — dark security moment */}
+      <ScrollSection direction="left">
       <section className="relative py-28 md:py-40 overflow-hidden" style={{ background: "#171614" }}>
         <div
           className="absolute inset-0 opacity-[0.55]"
@@ -211,8 +217,10 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+      </ScrollSection>
 
       {/* VERTICALS */}
+      <ScrollSection direction="right">
       <section className="relative section-surface border-b border-weha-border py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
@@ -234,8 +242,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </ScrollSection>
 
       {/* METRICS — over the network */}
+      <ScrollSection direction="left">
       <section className="relative py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6">
           {metrics.map(([n, label], i) => (
@@ -248,8 +258,10 @@ export default function Home() {
           ))}
         </div>
       </section>
+      </ScrollSection>
 
       {/* CTA BANNER */}
+      <ScrollSection direction="right">
       <section className="section-solid px-5 sm:px-8 pb-24">
         <div className="max-w-7xl mx-auto rounded-3xl px-8 py-16 md:px-16 md:py-24 relative overflow-hidden" style={{ background: "var(--weha-teal)" }}>
           <Reveal>
@@ -278,6 +290,7 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+      </ScrollSection>
     </div>
   );
 }
